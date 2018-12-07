@@ -1,13 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.library.depending" >
+    package="com.library.depending">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 使用摄像头权限 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<!-- 使用摄像头权限 -->
-<uses-permission android:name="android.permission.CALL_PHONE" />
-<uses-permission android:name="android.permission.READ_PHONE_STATE" />
-<application>
+    <application>
 
-    <!--图片预览-->
-    <activity android:name=".view.PlusImageActivity" />
-</application>
+        <!-- 图片预览 -->
+        <activity android:name=".view.PlusImageActivity" />
+        <activity android:name=".view.ImageActivity"></activity>
+    </application>
+
 </manifest>

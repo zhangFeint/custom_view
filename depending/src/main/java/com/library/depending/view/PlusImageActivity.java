@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 图片预览界面
+ * 多图片预览界面
  */
 public class PlusImageActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
     public static final String IMG_LIST = "img_list"; //第几张图片
@@ -39,11 +39,11 @@ public class PlusImageActivity extends BaseActivity implements ViewPager.OnPageC
     private ImageView back_iv, delete_iv;
 
     //查看大图
-    public static void show(Activity mContext, ArrayList<String> mPicList, int position) {
+    public static void show(Activity mContext, ArrayList<String> mPicList, int position,int requestCode) {
         Intent intent = new Intent(mContext, PlusImageActivity.class);
         intent.putStringArrayListExtra(IMG_LIST, mPicList);
         intent.putExtra(POSITION, position);
-        mContext.startActivityForResult(intent, REQUEST_CODE_MAIN);
+        mContext.startActivityForResult(intent, requestCode);
     }
 
     @Override
