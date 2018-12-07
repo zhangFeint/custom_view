@@ -1,0 +1,13 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.library.depending" >
+
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<!-- 使用摄像头权限 -->
+<uses-permission android:name="android.permission.CALL_PHONE" />
+<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+<application>
+
+    <!--图片预览-->
+    <activity android:name=".view.PlusImageActivity" />
+</application>
+</manifest>

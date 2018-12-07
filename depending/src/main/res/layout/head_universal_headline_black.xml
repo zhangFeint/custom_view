@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearlayout"
+    android:layout_width="match_parent"
+    android:layout_height="44dp"
+    android:background="@android:color/transparent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+    <!--通用头部导航栏-->
+    <TextView
+        android:id="@+id/tv_head_left"
+        style="@style/Width_Average"
+        android:textColor="@android:color/black"
+        android:layout_centerVertical="true"
+        android:gravity="left|center"
+        tools:text="@string/string" />
+
+    <TextView
+        android:id="@+id/tv_head_tible"
+        style="@style/Width_Average"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:textColor="@color/colorBlack"
+        android:textSize="@dimen/fontSize16"
+        tools:text="@string/string" />
+
+    <TextView
+        android:id="@+id/tv_head_right"
+        style="@style/Width_Average"
+        android:textColor="@android:color/black"
+        android:gravity="right|center"
+        tools:text="@string/string" />
+</LinearLayout>

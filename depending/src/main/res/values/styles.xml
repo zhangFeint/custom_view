@@ -1,0 +1,80 @@
+<resources>
+
+    <!-- 启动页面-->
+    <!--<style name="ThemeSplash" parent="Theme.AppCompat.Light.NoActionBar">-->
+    <!--<item name="android:background">@drawable/welcome</item>-->
+    <!--<item name="android:windowNoTitle">true</item>-->
+    <!--<item name="android:windowFullscreen">true</item>-->
+    <!--<item name="windowActionBar">false</item>-->
+    <!--<item name="windowNoTitle">true</item>-->
+    <!--</style>-->
+
+    <!-- 自定义仿IOS的ActionSheet底部Dialog的样式 ，有模糊效果 -->
+    <style name="ActionSheet.Dialog.Style" parent="@android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>//背景透明
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">true</item>  <!-- 浮于Activity之上 -->
+        <item name="android:windowNoTitle">true</item> <!-- 无标题 -->
+        <item name="android:windowFrame">@null</item>   <!-- 边框 -->
+        <item name="android:backgroundDimEnabled">true</item>  <!-- Dialog以外的区域模糊效果 -->
+        <item name="android:windowIsTranslucent">true</item> <!-- 半透明 -->
+        <item name="android:windowAnimationStyle">@style/Action.SheetDialog.Animation
+        </item>    <!-- Dialog进入及退出动画 -->
+    </style>
+
+
+
+    <!-- 对话框样式底部Dialog -->
+    <style name="Theme.Light.Dialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:scrollHorizontally">true</item>
+        <item name="android:windowAnimationStyle">@style/Action.SheetDialog.Animation
+        </item>    <!-- Dialog进入及退出动画 -->
+    </style>
+
+
+
+    <!-- ActionSheet进出动画 -->
+    <style name="Action.SheetDialog.Animation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/actionsheet_dialog_in</item>
+        <item name="android:windowExitAnimation">@anim/actionsheet_dialog_out</item>
+    </style>
+
+
+    <!-- CustomProgressDialog的样式 -->
+    <style name="Custom.Progress.Dialog" parent="@android:style/Theme.DeviceDefault.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+
+    <!-- 样式自适应样式 -->
+    <style name="Self_Adaption">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--宽平均-->
+    <style name="Width_Average">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <!--高平均-->
+    <style name="Height_Average">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <!--评分控件样式，在 drawable 写一个样式表，在布局调用样式style="@style/roomRatingBar"-->
+    <style name="Rating_Barroom_Custom">
+        <item name="android:progressDrawable">@drawable/ratingbar_custom</item>
+        <item name="android:minHeight">20dp</item>
+        <item name="android:maxHeight">20dp</item>
+    </style>
+
+
+</resources>

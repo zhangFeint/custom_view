@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--引导页 底部索引-->
+    <declare-styleable name="IndexChangeView">
+        <attr name="number" format="integer" />
+        <attr name="defaultColor" format="color" />
+        <attr name="selectColor" format="color" />
+        <attr name="dotRadius" format="dimension" />
+        <attr name="spaceBetween" format="dimension" />
+    </declare-styleable>
+    <!-- 自定义支付密码输入框/-->
+    <declare-styleable name="PayPsdInputView">
+        <attr name="maxCount" format="integer" />
+        <attr name="circleColor" format="color" />
+        <attr name="bottomLineColor" format="color" />
+        <attr name="radius" format="dimension" />
+        <attr name="divideLineWidth" format="dimension" />
+        <attr name="divideLineColor" format="color" />
+        <attr name="rectAngle" format="dimension" />
+        <attr name="focusedColor" format="color" />
+        <attr name="psdType" format="enum">
+            <enum name="weChat" value="0" />
+            <enum name="bottomLine" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

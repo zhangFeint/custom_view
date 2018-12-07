@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Depending</string>
+    <!--整数型占位符-->
+    <string name="in">%1$d</string>
+    <!--浮点型占位符-->
+    <string name="float1">%1$.2f</string>
+    <!--字符串占位符-->
+    <string name="string">%1$s</string>
+</resources>
