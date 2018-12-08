@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">custom_view</string>
+    <!--文件路径-->
+    <string name="filepath">com.library.custom_view.fileprovider</string>
 </resources>

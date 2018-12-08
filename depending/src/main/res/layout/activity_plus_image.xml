@@ -46,7 +46,8 @@
                 android:contentDescription="@null"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_z_delete" />
+                android:src="@drawable/ic_z_delete"
+                android:visibility="gone" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>
@@ -57,5 +58,4 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#000000" />
-
 </LinearLayout>
