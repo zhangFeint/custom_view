@@ -1,12 +1,7 @@
 package com.library.custom_view;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
@@ -16,7 +11,6 @@ import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.view.CameraUtils;
-import com.library.depending.view.CompressImageUtils;
 import com.library.depending.view.ImageActivity;
 import com.library.depending.webview.PermissionUtils;
 import com.library.depending.webview.WebActivity;
