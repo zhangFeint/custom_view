@@ -11,6 +11,7 @@ import android.view.View;
 
 
 import com.library.depending.R;
+import com.library.depending.view.GuideActivity;
 
 import java.util.ArrayList;
 
@@ -125,6 +126,14 @@ public class IndexChangeView extends View {
      */
     public int getNumber() {
         return number;
+    }
+    /**
+     * 圆点当前位置
+     *
+     * @return
+     */
+    public int getCurrentIndex() {
+        return currentIndex;
     }
 
     /**

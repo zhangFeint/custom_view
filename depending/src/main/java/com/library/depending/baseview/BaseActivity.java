@@ -3,10 +3,12 @@ package com.library.depending.baseview;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.WindowManager;
+
 
 
 import java.util.List;
@@ -20,9 +22,21 @@ public abstract class BaseActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyActivityManager.getInstance().pushOneActivity(this);
-
     }
 
+    /**
+     * 显示 Fragment
+     * @param savedInstanceState
+     * @param var1
+     * @param var2
+     */
+    public void showFragment(Bundle savedInstanceState, @IdRes int var1, @NonNull Fragment var2) {
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(var1, var2)
+                    .commitNow();
+        }
+    }
     /**
      * 初始化控件
      */

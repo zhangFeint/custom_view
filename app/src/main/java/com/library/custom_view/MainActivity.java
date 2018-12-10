@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.view.CameraUtils;
+import com.library.depending.view.GuideActivity;
 import com.library.depending.view.ImageActivity;
 import com.library.depending.webview.PermissionUtils;
 import com.library.depending.webview.WebActivity;
@@ -18,7 +19,7 @@ import com.library.depending.webview.WebActivity;
 import java.io.File;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private Button button1, button2, button3;
+    private Button button1, button2, button3,button4;
     private ImageView ivImage;
 
 
@@ -35,7 +36,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
+        button4 = findViewById(R.id.button4);
         ivImage = findViewById(R.id.iv_image);
+
+
         initData();
     }
 
@@ -62,6 +66,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
+        button4.setOnClickListener(this);
     }
 
     @Override
@@ -75,6 +80,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.button3:
                 CameraUtils.getInstance().getInstance().showCameraDialog(this, CameraUtils.REQUEST_CODE_CAMERA, CameraUtils.REQUEST_CODE_PHOTOS);
+                break;
+            case R.id.button4:
+                GuideActivity.show(this,new int[]{R.mipmap.splash,R.mipmap.splash1,R.mipmap.splash2},MainActivity.class);
                 break;
         }
     }
