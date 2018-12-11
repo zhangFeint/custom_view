@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.library.depending.R;
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.weight.IndexChangeView;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 
 
 public class GuideActivity extends BaseActivity {
@@ -57,6 +58,7 @@ public class GuideActivity extends BaseActivity {
         tvTime = findViewById(R.id.tv_time);
         initData();
         initListener();
+
     }
 
     @Override

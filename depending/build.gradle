@@ -39,5 +39,4 @@ dependencies {
     implementation files('libs/alipaySdk-20170922.jar')
     //城市地址选择器
     implementation 'liji.library.dev:citypickerview:3.1.13'
-
 }

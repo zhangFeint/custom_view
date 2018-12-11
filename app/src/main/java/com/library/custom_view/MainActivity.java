@@ -1,5 +1,6 @@
 package com.library.custom_view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.view.CameraUtils;
+import com.library.depending.view.CityPicker;
 import com.library.depending.view.GuideActivity;
 import com.library.depending.view.ImageActivity;
 import com.library.depending.webview.PermissionUtils;
@@ -19,9 +21,8 @@ import com.library.depending.webview.WebActivity;
 import java.io.File;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private Button button1, button2, button3,button4;
+    private Button button1, button2, button3, button4, button5;
     private ImageView ivImage;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
         button4 = findViewById(R.id.button4);
+        button5 = findViewById(R.id.button5);
         ivImage = findViewById(R.id.iv_image);
 
 
@@ -45,20 +47,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initData() {
-        if( PermissionUtils.checkMorePermissions(this,PermissionUtils.CAMERA_PERMISSIONS).size()==0){
+        if (PermissionUtils.checkMorePermissions(this, PermissionUtils.CAMERA_PERMISSIONS).size() == 0) {
             Toast.makeText(this, "权限已获取", Toast.LENGTH_SHORT).show();
-        }else {
-            PermissionUtils. requestMorePermissions (this,PermissionUtils.checkMorePermissions(this,PermissionUtils.CAMERA_PERMISSIONS),102);
+        } else {
+            PermissionUtils.requestMorePermissions(this, PermissionUtils.checkMorePermissions(this, PermissionUtils.CAMERA_PERMISSIONS), 102);
         }
+        CityPicker.getInstance().init(this);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-                if( PermissionUtils.isPermissionRequestSuccess(grantResults)){
-                    Toast.makeText(this, "申请成功", Toast.LENGTH_SHORT).show();
-                }
+        if (PermissionUtils.isPermissionRequestSuccess(grantResults)) {
+            Toast.makeText(this, "申请成功", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -67,6 +70,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
         button4.setOnClickListener(this);
+        button5.setOnClickListener(this);
     }
 
     @Override
@@ -82,7 +86,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 CameraUtils.getInstance().getInstance().showCameraDialog(this, CameraUtils.REQUEST_CODE_CAMERA, CameraUtils.REQUEST_CODE_PHOTOS);
                 break;
             case R.id.button4:
-                GuideActivity.show(this,new int[]{R.mipmap.splash,R.mipmap.splash1,R.mipmap.splash2},MainActivity.class);
+                GuideActivity.show(this, new int[]{R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
+                break;
+            case R.id.button5:
+                CityPicker.getInstance().show(new CityPicker.OnCityClickListener() {
+                    @Override
+                    public void onSelected(String province, String city, String district) {
+
+                        Toast.makeText(MainActivity.this, "province:"+province+"city:"+city+"district:"+district, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
                 break;
         }
     }
@@ -105,7 +119,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void resetCameraResult(Uri url) {
-        File file =  CameraUtils.getInstance(). compressImage(this,ivImage,url,400,400);
+        File file = CameraUtils.getInstance().compressImage(this, ivImage, url, 400, 400);
         CameraUtils.getInstance().deleteFile(file.getAbsolutePath());
     }
 
