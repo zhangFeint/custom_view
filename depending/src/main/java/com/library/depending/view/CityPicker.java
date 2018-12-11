@@ -33,7 +33,7 @@ public class CityPicker {
         mPicker.init(context);
     }
 
-    public void show(OnCityClickListener listener) {
+    public void show(final OnCityClickListener listener) {
         //添加默认的配置，不需要自己定义，当然也可以自定义相关熟悉，详细属性请看demo
         CityConfig cityConfig = new CityConfig.Builder().titleTextSize(14)
                 .title("地址选择")
@@ -56,6 +56,7 @@ public class CityPicker {
         mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
             @Override
             public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+                listener.onSelected(province.getName(),city.getName(),district.getName());
             }
         });
 

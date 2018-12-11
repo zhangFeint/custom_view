@@ -92,7 +92,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 CityPicker.getInstance().show(new CityPicker.OnCityClickListener() {
                     @Override
                     public void onSelected(String province, String city, String district) {
-
                         Toast.makeText(MainActivity.this, "province:"+province+"city:"+city+"district:"+district, Toast.LENGTH_SHORT).show();
                     }
                 });
