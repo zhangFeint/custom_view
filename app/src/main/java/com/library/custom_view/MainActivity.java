@@ -1,6 +1,7 @@
 package com.library.custom_view;
 
-import android.content.Context;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.view.CameraUtils;
 import com.library.depending.view.CityPicker;
+import com.library.depending.view.DialogUtils;
 import com.library.depending.view.GuideActivity;
 import com.library.depending.view.ImageActivity;
 import com.library.depending.webview.PermissionUtils;
@@ -21,7 +23,7 @@ import com.library.depending.webview.WebActivity;
 import java.io.File;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private Button button1, button2, button3, button4, button5;
+    private Button button1, button2, button3, button4, button5, button6;
     private ImageView ivImage;
 
     @Override
@@ -39,6 +41,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button3 = findViewById(R.id.button3);
         button4 = findViewById(R.id.button4);
         button5 = findViewById(R.id.button5);
+        button6 = findViewById(R.id.button6);
         ivImage = findViewById(R.id.iv_image);
 
 
@@ -71,6 +74,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button3.setOnClickListener(this);
         button4.setOnClickListener(this);
         button5.setOnClickListener(this);
+        button6.setOnClickListener(this);
     }
 
     @Override
@@ -92,10 +96,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 CityPicker.getInstance().show(new CityPicker.OnCityClickListener() {
                     @Override
                     public void onSelected(String province, String city, String district) {
-                        Toast.makeText(MainActivity.this, "province:"+province+"city:"+city+"district:"+district, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "province:" + province + "city:" + city + "district:" + district, Toast.LENGTH_SHORT).show();
                     }
                 });
-
+                break;
+            case R.id.button6:
+              final String message =  "杨幂，1986年9月12日出生于北京市，中国内地影视女演员、流行乐歌手、影视制片人。2005年，杨幂进入北京电影学院表演系本科班就读。2006年，杨幂因出演金庸武侠剧《神雕侠侣》而崭露头角。2008年，杨幂凭借古装剧《王昭君》获得了第24届中国电视金鹰奖观众喜爱的电视剧女演员奖提名。2009年，杨幂在“80后新生代娱乐大明星”评选活动中与其她三位女演员共同被评为“四小花旦”。";
+                DialogUtils.getInstance().displayDialog(this, new DialogUtils.OnDialogListener() {
+                    @Override
+                    public void onBuilder(AlertDialog.Builder builder) {
+                        builder.setTitle("简介");
+                        builder.setMessage(message);
+                        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(MainActivity.this, "确认", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(MainActivity.this, "取消", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
                 break;
         }
     }
