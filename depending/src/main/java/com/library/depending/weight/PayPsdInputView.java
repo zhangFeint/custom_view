@@ -75,12 +75,6 @@ public class PayPsdInputView extends android.support.v7.widget.AppCompatEditText
         this.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxCount)});
     }
 
-    /**
-     * 添加监听事件
-     */
-    public void setOnInputListener(OnInputListener listener) {
-        mListener = listener;
-    }
 
     /**
      * 获取输入的密码
@@ -89,7 +83,14 @@ public class PayPsdInputView extends android.support.v7.widget.AppCompatEditText
         return getText().toString().trim();
     }
 
-       private void getAtt(AttributeSet attrs) {
+    /**
+     * 添加监听事件
+     */
+    public void setOnInputListener(OnInputListener listener) {
+        mListener = listener;
+    }
+
+    private void getAtt(AttributeSet attrs) {
         TypedArray typedArray = mContext.obtainStyledAttributes(attrs, R.styleable.PayPsdInputView);
         maxCount = typedArray.getInt(R.styleable.PayPsdInputView_maxCount, maxCount);
         circleColor = typedArray.getColor(R.styleable.PayPsdInputView_circleColor, circleColor);
@@ -166,7 +167,6 @@ public class PayPsdInputView extends android.support.v7.widget.AppCompatEditText
      * 画微信支付密码的样式
      */
     private void drawWeChatBorder(Canvas canvas) {
-
         canvas.drawRoundRect(rectF, rectAngle, rectAngle, borderPaint);
 
         for (int i = 0; i < maxCount - 1; i++) {
@@ -235,7 +235,10 @@ public class PayPsdInputView extends android.support.v7.widget.AppCompatEditText
         }
     }
 
+
+
     private OnInputListener mListener;
+
     public interface OnInputListener {
         // TODO: 安全密码
         void onEqual(String pass);

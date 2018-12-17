@@ -6,5 +6,6 @@
     <string name="float1">%1$.2f</string>
     <!--字符串占位符-->
     <string name="string">%1$s</string>
-
+    <!--空格-->
+    <string name="blank">\u3000</string>
 </resources>
