@@ -74,7 +74,7 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
     </style>
-    
+
     <!--评分控件样式，在 drawable 写一个样式表，在布局调用样式style="@style/roomRatingBar"-->
     <style name="Rating_Barroom_Custom">
         <item name="android:progressDrawable">@drawable/ratingbar_custom</item>
