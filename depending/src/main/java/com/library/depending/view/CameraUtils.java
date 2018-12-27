@@ -255,18 +255,6 @@ public class CameraUtils {
         return false;
     }
 
-
-
-
-    /**
-     * 裁剪返回路径
-     *
-     * @return
-     */
-    public String getCropUri() {
-        return cropUri;
-    }
-
     /**
      * 保存裁剪之后的图片数据
      */
@@ -283,7 +271,14 @@ public class CameraUtils {
         }
         return null;
     }
-
+    /**
+     * 裁剪返回路径
+     *
+     * @return
+     */
+    public String getCropUri() {
+        return cropUri;
+    }
     /**
      * 通知图库更新
      */
