@@ -27,6 +27,22 @@
         <!-- 图片预览 -->
         <activity android:name=".view.PlusImageActivity" />
         <activity android:name=".view.ImageActivity" />
+
+        <!--图片选择Activity-->
+        <activity android:name="com.donkingliang.imageselector.ImageSelectorActivity" />
+        <!--//去掉Activity的ActionBar。-->
+        <!--//使用者可以根据自己的项目去配置，不一定要这样写，只要不Activity的ActionBar去掉就可以了。-->
+        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"-->
+        <!--//横竖屏切换处理。-->
+        <!--//如果要支持横竖屏切换，一定要加上这句，否则在切换横竖屏的时候会发生异常。-->
+        <!--android:configChanges="orientation|keyboardHidden|screenSize"/>-->
+
+        <!--//图片预览Activity-->
+        <activity
+            android:name="com.donkingliang.imageselector.PreviewActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <!--//图片剪切Activity-->
+        <activity android:name="com.donkingliang.imageselector.ClipImageActivity" />
         <!-- webview -->
         <activity android:name=".webview.WebActivity" />
         <activity android:name=".webview.WebNavigationActivity" />

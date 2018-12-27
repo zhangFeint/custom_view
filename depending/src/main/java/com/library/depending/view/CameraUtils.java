@@ -14,11 +14,19 @@ import android.widget.ImageView;
 
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.library.depending.customview.ActionSheetDialog;
+import com.library.depending.utils.GlideApp;
+import com.library.depending.utils.MyGlideEngine;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 功能：
@@ -30,11 +38,13 @@ import java.io.IOException;
  * Created with IntelliJ IDEA
  */
 public class CameraUtils {
+    private static final int REQUEST_CODE_CHOOSE = 2222;
     private Uri cameraUri;//拍照后的路径
     private String cropUri;//裁剪后的路径
     private String cropSavePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + "/XiaoCao" + File.separator;
     public static final int REQUEST_CODE_CAMERA = 110;//相机选择结果码
     public static final int REQUEST_CODE_PHOTOS = 111;//相册选择结果码
+    public static final int REQUEST_CODE_PHOTOS_MORE = 1111;//相册选择结果码
     public static final int RESULT_IMG_TAILOR = 114; //裁剪
     public static final int REQUEST_CODE_FILE = 112;//文件选择结果码
     public static final int REQUEST_CODE = 113; //相册多选
@@ -53,20 +63,18 @@ public class CameraUtils {
      * getFile(getImagePath(this, uri, null));
      *
      * @param activity
-     * @param cameraRequestCode     相机请求码
-     * @param PhotoAlbumRequestCode 相册请求码
      */
-    public void showCameraDialog(final Activity activity, final int cameraRequestCode, final int PhotoAlbumRequestCode) {
+    public void showCameraDialog(final Activity activity) {
         ActionSheetDialog dialog = new ActionSheetDialog(activity).builder()
                 .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        openCamera(activity, cameraRequestCode);
+                        openCamera(activity, REQUEST_CODE_CAMERA);
                     }
                 }).addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        openPhotoAlbum(activity, PhotoAlbumRequestCode);
+                        openPhotoAlbum(activity, REQUEST_CODE_PHOTOS);
                     }
                 }).setCancelable(false).setCanceledOnTouchOutside(false);
 
@@ -75,28 +83,76 @@ public class CameraUtils {
     }
 
     /**
+     * 相机，相册多选
+     *
+     * @param activity
+     * @param maxSelectCount        多选(最多9张)
+     * @param authority          "com.example.xx.fileprovider"
+     */
+
+    public void showCameraDialog(final Activity activity, final int maxSelectCount, String authority) {
+        Matisse.from(activity)
+                .choose(MimeType.ofAll())//图片类型
+                .countable(true)//true:选中后显示数字;false:选中后显示对号
+                .maxSelectable(maxSelectCount)//可选的最大数
+                .capture(true)//选择照片时，是否显示拍照
+                .captureStrategy(new CaptureStrategy(true, authority))//参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
+                .imageEngine(new MyGlideEngine())//图片加载引擎
+                .theme(com.zhihu.matisse.R.style.Matisse_Dracula)
+                .forResult(REQUEST_CODE_CHOOSE);//
+
+    }
+    /**
      * 相册多选
      *
      * @param activity
-     * @param cameraRequestCode     相机请求码
-     * @param PhotoAlbumRequestCode 相册请求码
      * @param maxSelectCount        多选(最多9张)
      */
-    public void showCameraDialog(final Activity activity, final int cameraRequestCode, final int PhotoAlbumRequestCode, final int maxSelectCount) {
+    public void showPhotoAlbumDialog(final Activity activity,final int maxSelectCount) {
         ActionSheetDialog dialog = new ActionSheetDialog(activity).builder()
                 .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        openCamera(activity, cameraRequestCode);
+                        openCamera(activity, REQUEST_CODE_CAMERA);
                     }
                 }).addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        ImageSelectorUtils.openPhoto(activity, PhotoAlbumRequestCode, false, maxSelectCount);  //多选(最多9张)
+                        ImageSelectorUtils.openPhoto(activity, REQUEST_CODE_PHOTOS_MORE, false, maxSelectCount);  //多选(最多9张)
                     }
                 }).setCancelable(false).setCanceledOnTouchOutside(false);
         dialog.show();
 
+    }
+
+    /**
+     * 拍照返回路径 ，相册返回data.getData();
+     *
+     * @param requestCode
+     * @param data
+     * @return
+     */
+    public List<Uri> getResult(Context context,int requestCode,Intent data) {
+        List<Uri> list = new  ArrayList();
+        switch (requestCode) {
+            case CameraUtils.REQUEST_CODE_CAMERA:
+                list.add(cameraUri);
+                break;
+            case CameraUtils.REQUEST_CODE_PHOTOS:
+                list.add(data.getData());
+                break;
+            case CameraUtils.REQUEST_CODE_PHOTOS_MORE:
+                ArrayList<String> arrayList =  data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
+                for (int i = 0; i < arrayList.size(); i++) {
+                    list.add(getImageContentUri(context,arrayList.get(i)))  ;
+                }
+                break;
+            case REQUEST_CODE_CHOOSE:
+                list =   Matisse.obtainResult(data);
+            default:
+                break;
+        }
+        return list ;
     }
 
 
@@ -200,14 +256,7 @@ public class CameraUtils {
     }
 
 
-    /**
-     * 拍照返回路径 ，相册返回data.getData();
-     *
-     * @return
-     */
-    public Uri getCameraUri() {
-        return cameraUri;
-    }
+
 
     /**
      * 裁剪返回路径
@@ -262,6 +311,33 @@ public class CameraUtils {
             cursor.close();
         }
         return path;
+    }
+    /**
+     * Gets the content:// URI from the given corresponding path to a file
+     *
+     * @param context
+     * @param filePath
+     * @return content Uri
+     */
+    public static Uri getImageContentUri(Context context,  String filePath ) {
+//        String filePath = imageFile.getAbsolutePath();
+        Cursor cursor = context.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                new String[] { MediaStore.Images.Media._ID }, MediaStore.Images.Media.DATA + "=? ",
+                new String[] { filePath }, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int id = cursor.getInt(cursor.getColumnIndex(MediaStore.MediaColumns._ID));
+            Uri baseUri = Uri.parse("content://media/external/images/media");
+            return Uri.withAppendedPath(baseUri, "" + id);
+        } else {
+//            if (imageFile.exists()) {
+//                ContentValues values = new ContentValues();
+//                values.put(MediaStore.Images.Media.DATA, filePath);
+//                return context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+//            } else {
+//                return null;
+//            }
+            return null;
+        }
     }
 
     /**
@@ -339,17 +415,13 @@ public class CameraUtils {
      * 压缩图片
      *
      * @param context
-     * @param imageView
      * @param url
      * @param targetWidth
      * @param targetHeight
      * @return
      */
-    public File compressImage(Context context, ImageView imageView, Uri url, int targetWidth, int targetHeight) {
+    public File compressImage(Context context,  Uri url, int targetWidth, int targetHeight) {
         Bitmap bitmap = CompressImageUtils.compressBoundsBitmap(context, url, targetWidth, targetHeight);
-        if (imageView != null) {
-            imageView.setImageBitmap(bitmap);
-        }
         return CompressImageUtils.compressImage(bitmap);
     }
 

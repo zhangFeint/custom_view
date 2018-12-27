@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
+import com.library.depending.utils.GlideApp;
 import com.library.depending.view.CameraUtils;
 import com.library.depending.view.CityPicker;
 import com.library.depending.view.DialogUtils;
@@ -87,7 +88,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 WebActivity.show(MainActivity.this, "https://www.baidu.com/");
                 break;
             case R.id.button3:
-                CameraUtils.getInstance().getInstance().showCameraDialog(this, CameraUtils.REQUEST_CODE_CAMERA, CameraUtils.REQUEST_CODE_PHOTOS);
+                CameraUtils.getInstance().showCameraDialog(this,9,"");
                 break;
             case R.id.button4:
                 GuideActivity.show(this, new int[]{R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
@@ -130,21 +131,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (resultCode != RESULT_OK) {//操作失败
             return;
         }
-        switch (requestCode) {
-            case CameraUtils.REQUEST_CODE_CAMERA:
-                resetCameraResult(CameraUtils.getInstance().getCameraUri());
-                break;
-            case CameraUtils.REQUEST_CODE_PHOTOS:
-                resetCameraResult(data.getData());
-                break;
-            default:
-                break;
-        }
+        resetCameraResult(CameraUtils.getInstance().getResult(this,requestCode,data).get(0));
     }
 
     private void resetCameraResult(Uri url) {
-        File file = CameraUtils.getInstance().compressImage(this, ivImage, url, 400, 400);
-        CameraUtils.getInstance().deleteFile(file.getAbsolutePath());
+        ivImage.setImageURI(url);
+        File file = CameraUtils.getInstance().compressImage(this, url, 400, 400);
+
     }
 
 
