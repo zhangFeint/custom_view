@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 WebActivity.show(MainActivity.this, "https://www.baidu.com/");
                 break;
             case R.id.button3:
-                CameraUtils.getInstance().showCameraDialog(this,9,"");
+                CameraUtils.getInstance().showCameraDialog(this);
                 break;
             case R.id.button4:
                 GuideActivity.show(this, new int[]{R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);

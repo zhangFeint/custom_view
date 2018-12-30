@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 public class PermissionUtils {
-    public static final String[] CAMERA_PERMISSIONS = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}; //相机权限
+    public static final String[] CAMERA_PERMISSIONS = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}; //相机权限
     public static final String[] SD_WRITE_READ_PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}; //往SDCard写入数据权限
     public static final String[] PHONE_PERMISSIONS = {Manifest.permission.CALL_PHONE};//打电话权限
     /**
