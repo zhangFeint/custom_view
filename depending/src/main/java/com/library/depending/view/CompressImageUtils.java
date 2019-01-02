@@ -118,11 +118,12 @@ public class CompressImageUtils {
             long length = baos.toByteArray().length;
         }
         File file = new File(savePath + File.separator + getPicName("IMG_"));
-        //判断文件夹是否存在，如果不存在就创建，否则不创建
-        if (!file.exists()) {
-            file.mkdirs();   //通过file的mkdirs()方法创建目录中包含却不存在的文件夹
+        File fileParent = file.getParentFile();
+        if (!fileParent.exists()) {
+            file.mkdirs();
         }
         try {
+            file.createNewFile();
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(baos.toByteArray());
             fos.flush();
@@ -142,6 +143,7 @@ public class CompressImageUtils {
     private static String getPicName(String Name) {
         return Name + String.valueOf(System.currentTimeMillis()) + ".jpg";
     }
+
     /**
      * 适配了android7 的uri文件暴露权限
      *
