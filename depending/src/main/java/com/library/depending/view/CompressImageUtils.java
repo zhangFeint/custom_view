@@ -30,7 +30,7 @@ import static android.support.v4.content.FileProvider.getUriForFile;
  */
 
 public class CompressImageUtils {
-    private static String savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + "/XiaoCao";
+    private static String savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + "/Compact";
 
     /**
      * 压缩图片
