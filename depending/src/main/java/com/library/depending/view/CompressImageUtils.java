@@ -120,8 +120,7 @@ public class CompressImageUtils {
         File file = new File(savePath + File.separator + getPicName("IMG_"));
         //判断文件夹是否存在，如果不存在就创建，否则不创建
         if (!file.exists()) {
-            //通过file的mkdirs()方法创建目录中包含却不存在的文件夹
-            file.mkdirs();
+            file.mkdirs();   //通过file的mkdirs()方法创建目录中包含却不存在的文件夹
         }
         try {
             FileOutputStream fos = new FileOutputStream(file);
