@@ -209,7 +209,6 @@ public class GuideActivity extends BaseActivity {
             View view = LayoutInflater.from(GuideActivity.this).inflate(R.layout.guide_image, null);
             ImageView imageView = view.findViewById(R.id.image);
             Glide.with(GuideActivity.this).load(images[position]).into(imageView);
-
             viewGroup.addView(view);
             return view;
         }

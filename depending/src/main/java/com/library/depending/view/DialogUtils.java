@@ -30,6 +30,22 @@ public class DialogUtils {
     }
     //----------------------------------------------------------Dialog控件----------------------------------------------------------------------
 
+
+    /**
+     * 默认的弹出框
+     *
+     * @param activity
+     * @param onDialogListener 实现接口
+     */
+    public void displayDialog(Activity activity, final OnDialogListener onDialogListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        onDialogListener.onBuilder(builder);
+        builder.create().show();
+    }
+
+    public interface OnDialogListener {
+        void onBuilder(AlertDialog.Builder builder);
+    }
     /**
      * 弹出对话框
      *
@@ -37,27 +53,13 @@ public class DialogUtils {
      * @param arr             内容 String[]{"启动照相机", "打开手机相册", "取消选择"}
      * @param onClickListener 实现接口
      */
-    public void displayListDialog(Activity activity, String[] arr, DialogInterface.OnClickListener onClickListener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("请选择");
-        builder.setItems(arr, onClickListener);
-        builder.create().show();
-    }
-
-    /**
-     * 默认的弹出框
-     *
-     * @param context
-     * @param onDialogListener 实现接口
-     */
-    public void displayDialog(Context context, final OnDialogListener onDialogListener) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        onDialogListener.onBuilder(builder);
-        builder.create().show();
-    }
-
-    public interface OnDialogListener {
-        void onBuilder(AlertDialog.Builder builder);
+    public void displayListDialog(Activity activity, final String[] arr, final DialogInterface.OnClickListener onClickListener) {
+        displayDialog(activity, new OnDialogListener() {
+            @Override
+            public void onBuilder(AlertDialog.Builder builder) {
+                builder.setItems(arr, onClickListener);
+            }
+        });
     }
 
 
@@ -86,6 +88,7 @@ public class DialogUtils {
     public void displayCustomDialog(Context context, int resource, OnCustomDialogListener onCustomDialogListener) {
         View view = LayoutInflater.from(context).inflate(resource, null); //    通过LayoutInflater来加载一个xml的布局文件作为一个View对象
         Dialog dialog = new Dialog(context, resource);
+        dialog.setContentView(view);
         onCustomDialogListener.OnHandleEvent(view, dialog);
     }
 
@@ -99,6 +102,7 @@ public class DialogUtils {
         //    通过LayoutInflater来加载一个xml的布局文件作为一个View对象
         View view = LayoutInflater.from(context).inflate(resource, null);
         Dialog dialog = new Dialog(context, themeResId);
+        dialog.setContentView(view);
         onCustomDialogListener.OnHandleEvent(view, dialog);
     }
     /**

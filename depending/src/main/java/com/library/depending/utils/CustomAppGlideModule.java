@@ -1,29 +1,4 @@
 package com.library.depending.utils;
-/*
- *
- *          ┌─┐       ┌─┐
- *       ┌──┘ ┴───────┘ ┴──┐
- *       │                 │
- *       │       ───       │
- *       │  ─┬┘       └┬─  │
- *       │                 │
- *       │       ─┴─       │
- *       │                 │
- *       └───┐         ┌───┘
- *           │         │
- *           │         │
- *           │         │
- *           │         └──────────────┐
- *           │                        │
- *           │                        ├─┐
- *           │                        ┌─┘
- *           │                        │
- *           └─┐  ┐  ┌───────┬──┐  ┌──┘
- *             │ ─┤ ─┤       │ ─┤ ─┤
- *             └──┴──┘       └──┴──┘
- *                 神兽保佑
- *                 代码无BUG!
- */
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
