@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Priority;
+import com.bumptech.glide.annotation.GlideModule;
 import com.zhihu.matisse.engine.ImageEngine;
 
 
@@ -17,8 +18,8 @@ import com.zhihu.matisse.engine.ImageEngine;
  * Created android studiuo
  * @create ：2018/12/27 16 :35
  */
-public class MyGlideEngine implements ImageEngine {
 
+public class MyGlideEngine implements ImageEngine {
 
     @Override
     public void loadThumbnail(Context context, int resize, Drawable placeholder, ImageView imageView, Uri uri) {

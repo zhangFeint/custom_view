@@ -11,16 +11,15 @@ import android.view.WindowManager;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class StatusBarUtil {
 /**
- *
- * StatusBarUtil.transparencyBar(this); //设置状态栏全透明
- *StatusBarUtil.StatusBarLightMode(this); //设置白底黑字
  * 在设置状态栏全透明后，整个activity布局都会上移充满整个屏幕，如果你不想让布局上移的话就需要在根布局设置
- *    android:fitsSystemWindows="true"
+ * android:fitsSystemWindows="true"
  */
+public class StatusBarUtil {
+
     /**
      * 修改状态栏为全透明
+     * StatusBarUtil.transparencyBar(this); //设置状态栏全透明
      *
      * @param activity
      */
@@ -44,6 +43,7 @@ public class StatusBarUtil {
     /**
      * 状态栏亮色模式，设置状态栏黑色文字、图标，
      * 适配4.4以上版本MIUIV、Flyme和6.0以上版本其他Android
+     * StatusBarUtil.StatusBarLightMode(this); //设置白底黑字
      *
      * @param activity
      * @return 1:MIUUI 2:Flyme 3:android6.0
