@@ -27,7 +27,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/circle"
+        android:background="@drawable/shape_circle"
         android:textColor="@android:color/white"
         android:textSize="@dimen/fontSize14"
         android:gravity="center"
