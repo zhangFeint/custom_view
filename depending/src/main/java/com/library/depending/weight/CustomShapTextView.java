@@ -100,7 +100,7 @@ public class CustomShapTextView extends TextView {
             //画笔颜色
             mPaint.setColor(mPaintNormalColor);
             //画笔样式:空心
-            mPaint.setStyle(Paint.Style.STROKE);
+            mPaint.setStyle(Paint.Style.FILL);
         }
 
         //创建一个区域,限制圆弧范围
