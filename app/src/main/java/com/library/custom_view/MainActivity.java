@@ -21,10 +21,15 @@ import com.library.depending.view.ImageActivity;
 import com.library.depending.webview.PermissionUtils;
 import com.library.depending.webview.WebActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.io.File;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-    private Button button1, button2, button3, button4, button5, button6;
+    private Button button1, button2, button3, button4, button5, button6,button7;
     private ImageView ivImage;
 
     @Override
@@ -43,6 +48,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button4 = findViewById(R.id.button4);
         button5 = findViewById(R.id.button5);
         button6 = findViewById(R.id.button6);
+        button7 =  findViewById(R.id.button7);
         ivImage = findViewById(R.id.iv_image);
 
 
@@ -76,6 +82,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button4.setOnClickListener(this);
         button5.setOnClickListener(this);
         button6.setOnClickListener(this);
+        button7.setOnClickListener(this);
     }
 
     @Override
@@ -123,9 +130,27 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     }
                 });
                 break;
+            case R.id.button7:
+                String message1="{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";
+                estimate(message1);
+                String message2="[{\"key\":\"value\"},{\"key\":\"value\"},{\"key\":\"value\"}]";
+                estimate(message2);
+                break;
         }
     }
+    private  void estimate(String message) {
+        try {
+            Object json= new JSONTokener(message).nextValue();
+            if (json instanceof JSONObject) {
+                System.out.println("数据是JSONObject");
+            }else if (json instanceof JSONArray){
+                System.out.println("数据是JSONArray");
+            }
 
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode != RESULT_OK) {//操作失败

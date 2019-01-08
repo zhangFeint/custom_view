@@ -55,6 +55,14 @@ public class CustomShapTextView extends TextView {
         initPaint(context,attrs);
     }
 
+    public void setmPaintNormalColor(int mPaintNormalColor) {
+        this.mPaintNormalColor = mPaintNormalColor;
+    }
+
+    public void setmPaintSelectColor(int mPaintSelectColor) {
+        this.mPaintSelectColor = mPaintSelectColor;
+    }
+
     /**
      * 初始化画笔和自定义属性
      * @param context
