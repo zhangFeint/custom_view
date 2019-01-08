@@ -39,7 +39,7 @@ public class CustomShapTextView extends TextView {
     /**
      * 是否填充颜色
      */
-    private boolean isFillColor = true;
+    private boolean isFillColor = false;
 
     public CustomShapTextView(Context context) {
         super(context);
@@ -55,10 +55,18 @@ public class CustomShapTextView extends TextView {
         initPaint(context,attrs);
     }
 
+    /**
+     *  默认灰色
+     * @param mPaintNormalColor
+     */
     public void setmPaintNormalColor(int mPaintNormalColor) {
         this.mPaintNormalColor = mPaintNormalColor;
     }
 
+    /**
+     * 选中时的颜色,默认灰色
+     * @param mPaintSelectColor
+     */
     public void setmPaintSelectColor(int mPaintSelectColor) {
         this.mPaintSelectColor = mPaintSelectColor;
     }
