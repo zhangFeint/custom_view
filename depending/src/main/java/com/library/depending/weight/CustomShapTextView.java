@@ -39,7 +39,7 @@ public class CustomShapTextView extends TextView {
     /**
      * 是否填充颜色
      */
-    private boolean isSelect = false;
+    private boolean isChecked = false;
 
     public CustomShapTextView(Context context) {
         super(context);
@@ -81,6 +81,7 @@ public class CustomShapTextView extends TextView {
         TypedArray typeArray = context.obtainStyledAttributes(attrs, R.styleable.CustomShapTextView);
         mPaintNormalColor = typeArray.getColor(R.styleable.CustomShapTextView_paintNormalColor,mPaintNormalColor);
         mPaintSelectColor = typeArray.getColor(R.styleable.CustomShapTextView_paintSelectColor,mPaintSelectColor);
+        isChecked = typeArray.getBoolean(R.styleable.CustomShapTextView_checked,isChecked);
         mPaint = new Paint();
     }
 
@@ -92,7 +93,7 @@ public class CustomShapTextView extends TextView {
     protected void onDraw(Canvas canvas) {
         //抗锯齿
         mPaint.setAntiAlias(true);
-        if (isSelect) {
+        if (isChecked) {
             //画笔颜色
             mPaint.setColor(mPaintSelectColor);
             mPaint.setStyle(Paint.Style.FILL);
@@ -119,12 +120,12 @@ public class CustomShapTextView extends TextView {
      * 设置是否填充颜色
      * @param isSelect
      */
-    public void setFillColor(boolean isSelect){
-        this.isSelect = isSelect;
+    public void setChecked(boolean isSelect){
+        this.isChecked = isChecked;
         invalidate();
     }
 
-    public boolean isSelect() {
-        return isSelect;
+    public boolean isChecked() {
+        return isChecked;
     }
 }

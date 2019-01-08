@@ -29,5 +29,6 @@
         <attr name="paintNormalColor" format="reference|color"/>
         <!-- Selected Paint Color (color). -->
         <attr name="paintSelectColor" format="reference|color"/>
+        <attr name="checked" format="boolean"/>
     </declare-styleable>
 </resources>
