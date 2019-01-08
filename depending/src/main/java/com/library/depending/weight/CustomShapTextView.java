@@ -123,4 +123,8 @@ public class CustomShapTextView extends TextView {
         this.isSelect = isSelect;
         invalidate();
     }
+
+    public boolean isSelect() {
+        return isSelect;
+    }
 }
