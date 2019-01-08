@@ -39,7 +39,7 @@ public class CustomShapTextView extends TextView {
     /**
      * 是否填充颜色
      */
-    private boolean isFillColor = false;
+    private boolean isSelect = false;
 
     public CustomShapTextView(Context context) {
         super(context);
@@ -92,7 +92,7 @@ public class CustomShapTextView extends TextView {
     protected void onDraw(Canvas canvas) {
         //抗锯齿
         mPaint.setAntiAlias(true);
-        if (isFillColor) {
+        if (isSelect) {
             //画笔颜色
             mPaint.setColor(mPaintSelectColor);
             mPaint.setStyle(Paint.Style.FILL);
@@ -111,17 +111,16 @@ public class CustomShapTextView extends TextView {
         rectF.set(getPaddingLeft(),getPaddingTop(),radius-getPaddingRight(),radius-getPaddingBottom());
         //绘制圆弧
         canvas.drawArc(rectF,0,360,false,mPaint);
-
         //最后调用super方法,解决文本被所绘制的圆圈背景锁覆盖的问题
         super.onDraw(canvas);
     }
 
     /**
      * 设置是否填充颜色
-     * @param isFill
+     * @param isSelect
      */
-    public void setFillColor(boolean isFill){
-        this.isFillColor = isFill;
+    public void setFillColor(boolean isSelect){
+        this.isSelect = isSelect;
         invalidate();
     }
 }
