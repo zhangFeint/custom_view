@@ -8,6 +8,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.WindowManager;
@@ -15,30 +16,76 @@ import android.view.WindowManager;
 
 import java.util.List;
 
+
 /**
  * 自定义的基本Activity
  */
 public abstract class BaseActivity extends AppCompatActivity {
-    private static final String TAG = "BaseActivity";
+    private FragmentManager manager;
+    private FragmentTransaction transaction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyActivityManager.getInstance().pushOneActivity(this);
+
     }
 
     /**
-     * 显示 Fragment
-     *
-     * @param savedInstanceState
-     * @param var1
-     * @param var2
+     * 显示当前 Fragment
+     * @param var1     FrameLayout ID
+     * @param fragment  new Fragment();
      */
-    public void showFragment(Bundle savedInstanceState, @IdRes int var1, @NonNull Fragment var2) {
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .replace(var1, var2)
-                    .commitNow();
+    public void processView(@IdRes int var1, Fragment fragment) {
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        removeFragment(transaction);
+        transaction.replace(var1, fragment);
+        transaction.commit();
+    }
+
+    /*
+     * 去除（隐藏）所有的Fragment
+     * */
+    private void removeFragment(FragmentTransaction transaction) {
+        List<Fragment> frmlist = manager.getFragments();
+        for (int i = 0; i < frmlist.size(); i++) {
+            transaction.remove(frmlist.get(i));
+        }
+    }
+
+    /**
+     * 添加fragment   用 showFragment显示
+     * @param var1   FrameLayout ID
+     * @param fragment new Fragment();
+     */
+    public void addFragment(@IdRes int var1, Fragment fragment) {
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.add(var1, fragment);
+        transaction.hide(fragment);
+        transaction.commit();
+    }
+
+    /**
+     *
+     * @param fragment
+     */
+    public void showFragment( Fragment fragment) {
+        manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        hideFragment(transaction);
+        transaction.show(fragment);
+        transaction.commit();
+    }
+
+    /*
+     * 去除（隐藏）所有的Fragment
+     * */
+    private void hideFragment(FragmentTransaction transaction) {
+        List<Fragment> frmlist = manager.getFragments();
+        for (int i = 0; i < frmlist.size(); i++) {
+            transaction.hide(frmlist.get(i));
         }
     }
 
@@ -57,20 +104,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 初始适配器
-     */
-    public void initAdapter() {
-    }
-
-
-    /**
-     * 初始化监听
-     */
-    public void initListener() {
-
-    }
-
-    /**
      * 加载数据
      */
     public void loadData() {
@@ -81,8 +114,21 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 加载适配器
      */
     public void loadAdapter() {
+
     }
 
+    /**
+     * 初始化监听
+     */
+    public void initListener() {
+
+    }
+
+    /**
+     * 初始适配器
+     */
+    public void initAdapter() {
+    }
 
     /**
      * 设置横屏 true ：横屏 false ：竖屏
@@ -119,6 +165,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); // 取消全屏
         }
+
     }
 
     /**
@@ -144,6 +191,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
+    private static final String TAG = "BaseActivity";
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -179,4 +228,5 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (childFragment == null)
             Log.e(TAG, "MyBaseFragmentActivity1111");
     }
+
 }
