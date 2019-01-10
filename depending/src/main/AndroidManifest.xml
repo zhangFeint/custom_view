@@ -21,10 +21,6 @@
     <uses-permission
         android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
-    <!--允许读取网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <!--允许读取wifi网络状态-->
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application>
 
@@ -52,16 +48,6 @@
         <activity android:name=".webview.WebNavigationActivity" />
         <activity android:name=".view.GuideActivity"></activity>
 
-
-
-        <receiver android:name=".broadcast.NetworkConnectChangedReceiver">
-            <intent-filter>
-                <!--//检测网络变化的acton-->
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-        </receiver>
 
     </application>
 

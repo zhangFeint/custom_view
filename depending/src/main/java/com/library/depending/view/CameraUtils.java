@@ -10,15 +10,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.widget.ImageView;
 
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.library.depending.customview.ActionSheetDialog;
-import com.library.depending.utils.GlideApp;
 import com.library.depending.utils.MyGlideEngine;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
 
 import java.io.ByteArrayOutputStream;
