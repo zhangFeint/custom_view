@@ -38,10 +38,11 @@ dependencies {
     //相册多图片选择
     implementation 'com.github.donkingliang:ImageSelector:1.5.0'
     implementation 'com.zhihu.android:matisse:0.4.3'
-    implementation files('libs/alipaySdk-20170922.jar')
+
     //城市地址选择器
     implementation 'liji.library.dev:citypickerview:3.1.13'
     implementation 'com.zhihu.android:matisse:0.5.2-beta2'
+    implementation files('libs/alipaySdk-20170922.jar')
     //知乎的图片选择框架
     implementation files('libs/universal-image-loader-1.9.5.jar')
 }
