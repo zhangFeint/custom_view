@@ -15,6 +15,8 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
@@ -59,7 +61,7 @@ public class CustomShapTextView extends TextView {
      *  默认灰色
      * @param mPaintNormalColor
      */
-    public void setmPaintNormalColor(int mPaintNormalColor) {
+    public void setmPaintNormalColor(@ColorInt int mPaintNormalColor) {
         this.mPaintNormalColor = mPaintNormalColor;
     }
 
@@ -67,7 +69,7 @@ public class CustomShapTextView extends TextView {
      * 选中时的颜色,默认灰色
      * @param mPaintSelectColor
      */
-    public void setmPaintSelectColor(int mPaintSelectColor) {
+    public void setmPaintSelectColor(@ColorInt int mPaintSelectColor) {
         this.mPaintSelectColor = mPaintSelectColor;
     }
 
