@@ -38,12 +38,12 @@ public class CustomProgressDialog extends Dialog {
         }
     }
 
-
-    public CustomProgressDialog setTitle(String strMessage) {
+    @Override
+    public void setTitle(CharSequence title) {
         TextView tvMsg = findViewById(R.id.id_tv_loadingmsg);
         if (tvMsg != null) {
-            tvMsg.setText(strMessage);
+            tvMsg.setText(title);
         }
-        return this;
     }
+
 }

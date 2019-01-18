@@ -44,4 +44,5 @@ dependencies {
     implementation files('libs/alipaySdk-20170922.jar')
     //知乎的图片选择框架
     implementation files('libs/universal-image-loader-1.9.5.jar')
+    implementation 'org.jetbrains:annotations-java5:15.0'
 }
