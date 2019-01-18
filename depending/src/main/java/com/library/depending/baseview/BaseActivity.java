@@ -1,8 +1,11 @@
 package com.library.depending.baseview;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -30,7 +33,17 @@ public abstract class BaseActivity extends AppCompatActivity {
         MyActivityManager.getInstance().pushOneActivity(this);
 
     }
-
+    /**
+     * 判断当前手机是否有网络连接, true, 有可用的网络连接；false,没有可用的网络连接
+     */
+    public boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo info = manager.getActiveNetworkInfo();
+        if (manager == null || info == null || !info.isAvailable()) {
+            return false;
+        }
+        return true;
+    }
     /**
      * 显示当前 Fragment
      * @param var1     FrameLayout ID
@@ -53,6 +66,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             transaction.remove(frmlist.get(i));
         }
     }
+
+
 
     /**
      * 添加fragment   用 showFragment显示
@@ -216,7 +231,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param resultCode
      * @param data
      */
-    private void handleResult(Fragment fragment, int requestCode, int resultCode, Intent data) {
+    private void handleResult(Fragment fragment, int requestCode, int resultCode, Intent data)  {
         fragment.onActivityResult(requestCode, resultCode, data);//调用每个Fragment的onActivityResult
         Log.e(TAG, "MyBaseFragmentActivity");
         List<Fragment> childFragment = fragment.getChildFragmentManager().getFragments(); //找到第二层Fragment
