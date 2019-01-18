@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.WindowManager;
 
 
+import com.library.depending.utils.ScreenUtil;
+
 import java.util.List;
 
 
@@ -33,6 +35,27 @@ public abstract class BaseActivity extends AppCompatActivity {
         MyActivityManager.getInstance().pushOneActivity(this);
 
     }
+    /**
+     * 使得在“setContentView()"之前生效，所以配置在此方法中。
+     * @param newBase
+     */
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
+        ScreenUtil.resetDensity(this);
+    }
+
+    /**
+     * 在某种情况下需要Activity的视图初始完毕Application中DisplayMetrics相关参数才能起效果，例如toast.
+     * @param
+     */
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        ScreenUtil.resetDensity(this.getApplicationContext());
+    }
+
+
     /**
      * 判断当前手机是否有网络连接, true, 有可用的网络连接；false,没有可用的网络连接
      */
