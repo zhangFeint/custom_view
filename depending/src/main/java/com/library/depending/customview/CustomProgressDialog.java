@@ -22,6 +22,14 @@ public class CustomProgressDialog extends Dialog {
         setCancelable(true);
     }
 
+    public CustomProgressDialog(Context context, String tible) {
+        super(context);
+        setContentView(R.layout.custom_progress_dialog);
+        getWindow().getAttributes().gravity = Gravity.CENTER;
+        setCancelable(true);
+        setTitle(tible);
+    }
+
     public CustomProgressDialog(Context context, int theme) {
         super(context, theme);
         setContentView(R.layout.custom_progress_dialog);
@@ -32,7 +40,7 @@ public class CustomProgressDialog extends Dialog {
 
     public void onWindowFocusChanged(boolean hasFocus) {
         ImageView imageView = findViewById(R.id.loadingImageView);
-        if(imageView != null){
+        if (imageView != null) {
             AnimationDrawable animationDrawable = (AnimationDrawable) imageView.getBackground();
             animationDrawable.start();
         }
