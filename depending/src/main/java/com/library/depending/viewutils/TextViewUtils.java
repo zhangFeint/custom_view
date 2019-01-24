@@ -10,6 +10,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
@@ -113,6 +114,7 @@ public class TextViewUtils {
         imageLoader.init(ImageLoaderConfiguration.createDefault(activity));
         URLImageParser imageGetter = new URLImageParser(textView);
         textView.setText(Html.fromHtml(string, imageGetter, null));
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
     }
     public class URLImageParser implements Html.ImageGetter {
         TextView mTextView;
