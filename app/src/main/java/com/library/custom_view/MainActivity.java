@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.customview.CustomProgressDialog;
 import com.library.depending.utils.GlideApp;
+import com.library.depending.utils.JsonUtils;
 import com.library.depending.view.CameraUtils;
 import com.library.depending.view.CityPicker;
 import com.library.depending.view.DialogUtils;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.File;
+import java.util.Iterator;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button button1, button2, button3, button4, button5, button6, button7;
@@ -136,26 +138,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.button7:
                 String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";
-                estimate(message1);
+                JsonUtils.getInstance().  estimate(message1);
                 String message2 = "[{\"key\":\"value\"},{\"key\":\"value\"},{\"key\":\"value\"}]";
-                estimate(message2);
+                JsonUtils.getInstance().  estimate(message2);
                 break;
         }
     }
 
-    private void estimate(String message) {
-        try {
-            Object json = new JSONTokener(message).nextValue();
-            if (json instanceof JSONObject) {
-                System.out.println("数据是JSONObject");
-            } else if (json instanceof JSONArray) {
-                System.out.println("数据是JSONArray");
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -170,6 +159,5 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         File file = CameraUtils.getInstance().compressImage(this, url, 400, 400);
 
     }
-
 
 }
