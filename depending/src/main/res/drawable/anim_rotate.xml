@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rotate xmlns:android="http://schemas.android.com/apk/res/android">
-    <rotate
-        android:drawable="@mipmap/progress_1"
-        android:fromDegrees="0"
-        android:toDegrees="359"
-        android:repeatCount="-1">
-        <!--android:pivotX="50%"-->
-        <!--android:pivotY="50%"-->
-        <!--android:duration="1000"-->
-    </rotate>
-</rotate>
+<animated-rotate xmlns:android="http://schemas.android.com/apk/res/android"
+android:drawable="@mipmap/progress_1"
+android:fromDegrees="0.0"
+android:pivotX="50.0%"
+android:pivotY="50.0%"
+android:toDegrees="360.0" />
+
+<!--<ProgressBar-->
+<!--android:id="@+id/loading"-->
+<!--android:layout_width="30dp"-->
+<!--android:layout_height="30dp"-->
+<!--android:layout_gravity="center_horizontal"-->
+<!--android:layout_marginTop="20dp"-->
+<!--android:indeterminateBehavior="repeat"-->
+<!--android:indeterminateDrawable="@drawable/anim" />-->
+
+
 <!--加载中旋转动画-->

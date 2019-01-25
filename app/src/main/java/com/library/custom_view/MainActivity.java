@@ -1,7 +1,6 @@
 package com.library.custom_view;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,24 +11,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
-import com.library.depending.customview.CustomProgressDialog;
-import com.library.depending.utils.GlideApp;
 import com.library.depending.utils.JsonUtils;
 import com.library.depending.view.CameraUtils;
 import com.library.depending.view.CityPicker;
-import com.library.depending.view.DialogUtils;
 import com.library.depending.view.GuideActivity;
 import com.library.depending.view.ImageActivity;
 import com.library.depending.webview.PermissionUtils;
 import com.library.depending.webview.WebActivity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.io.File;
-import java.util.Iterator;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button button1, button2, button3, button4, button5, button6, button7;
@@ -132,9 +123,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                        });
 //                    }
 //                });
-                CustomProgressDialog dialog = new CustomProgressDialog(this);
-                dialog.setTitle("加载中...");
-                dialog.show();
+
                 break;
             case R.id.button7:
                 String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";

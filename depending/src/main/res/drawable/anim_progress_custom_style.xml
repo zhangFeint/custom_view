@@ -32,3 +32,4 @@
         android:drawable="@mipmap/progress_10"
         android:duration="60" />
 </animation-list><!--加载中帧动画-->
+<!-- android:background="@drawable/anim_progress_custom_style" -->
