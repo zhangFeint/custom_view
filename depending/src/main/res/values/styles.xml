@@ -42,9 +42,12 @@
 
 
     <!-- CustomProgressDialog的样式 -->
-    <style name="Custom.Progress.Dialog" parent="@android:style/Theme.DeviceDefault.Dialog">
+    <style name="LoadingDialog" parent="@android:style/Theme.DeviceDefault.Dialog">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
+        <!--设置窗口是否变暗（true变暗，false不变暗，见效果图1和2）-->
+        <item name="android:backgroundDimEnabled">false</item>
+
     </style>
 
 

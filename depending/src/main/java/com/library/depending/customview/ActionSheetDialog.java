@@ -42,15 +42,13 @@ public class ActionSheetDialog {
 
     public ActionSheetDialog(Context context) {
         this.context = context;
-        WindowManager windowManager = (WindowManager) context
-                .getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         display = windowManager.getDefaultDisplay();
     }
 
     public ActionSheetDialog builder() {
         View view = LayoutInflater.from(context).inflate(R.layout.view_actionsheet, null);    // ��ȡDialog����
         view.setMinimumWidth(display.getWidth());    // ����Dialog��С���Ϊ��Ļ���
-
         // ��ȡ�Զ���Dialog�����еĿؼ�
         sLayout_content = view.findViewById(R.id.sLayout_content);
         lLayout_content = view.findViewById(R.id.lLayout_content);
@@ -69,8 +67,9 @@ public class ActionSheetDialog {
         dialog = new Dialog(context, R.style.ActionSheet_Dialog_Style);
         dialog.setContentView(view);
         Window dialogWindow = dialog.getWindow();
-        dialogWindow.setGravity(Gravity.LEFT | Gravity.BOTTOM);
+        dialogWindow.setGravity( Gravity.BOTTOM);
         WindowManager.LayoutParams lp = dialogWindow.getAttributes();
+        lp.width= display.getWidth();
         lp.x = 0;
         lp.y = 0;
         dialogWindow.setAttributes(lp);

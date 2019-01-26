@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
+import com.library.depending.customview.LoadingDialog;
 import com.library.depending.utils.JsonUtils;
 import com.library.depending.view.CameraUtils;
 import com.library.depending.view.CityPicker;
@@ -123,13 +124,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                        });
 //                    }
 //                });
+                LoadingDialog dialog = new LoadingDialog(this,"加载中。。。");
 
+                dialog.show();
                 break;
             case R.id.button7:
                 String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";
-                JsonUtils.getInstance().  estimate(message1);
+                JsonUtils.getInstance().estimate(message1);
                 String message2 = "[{\"key\":\"value\"},{\"key\":\"value\"},{\"key\":\"value\"}]";
-                JsonUtils.getInstance().  estimate(message2);
+                JsonUtils.getInstance().estimate(message2);
                 break;
         }
     }
