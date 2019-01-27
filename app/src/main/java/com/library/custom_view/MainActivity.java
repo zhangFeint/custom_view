@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -45,9 +46,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button6 = findViewById(R.id.button6);
         button7 = findViewById(R.id.button7);
         ivImage = findViewById(R.id.iv_image);
-
-
         initData();
+    }
+
+    @Override
+    public void onChangeListener(int netMobile) {
+        super.onChangeListener(netMobile);
+        Log.d("onNetChange1111: ", ""+isNetConnect());
     }
 
     @Override
@@ -63,7 +68,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
         if (PermissionUtils.isPermissionRequestSuccess(grantResults)) {
             Toast.makeText(this, "申请成功", Toast.LENGTH_SHORT).show();
         }

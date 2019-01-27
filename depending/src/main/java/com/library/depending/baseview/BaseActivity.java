@@ -2,10 +2,12 @@ package com.library.depending.baseview;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -17,6 +19,8 @@ import android.util.Log;
 import android.view.WindowManager;
 
 
+import com.library.depending.broadcast.NetBroadcastReceiver;
+import com.library.depending.utils.NetUtil;
 import com.library.depending.utils.ScreenUtil;
 
 import java.util.List;
@@ -25,18 +29,36 @@ import java.util.List;
 /**
  * 自定义的基本Activity
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements NetBroadcastReceiver.NetChangeListener {
+    public static NetBroadcastReceiver.NetChangeListener listener;
+    /**
+     * 网络类型
+     */
+    private int netMobile;
     private FragmentManager manager;
     private FragmentTransaction transaction;
+    private NetBroadcastReceiver netBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyActivityManager.getInstance().pushOneActivity(this);
-
+        listener = this;
+        //Android 7.0以上需要动态注册
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //实例化IntentFilter对象
+            IntentFilter filter = new IntentFilter();
+            filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+            netBroadcastReceiver = new NetBroadcastReceiver();
+            //注册广播接收
+            registerReceiver(netBroadcastReceiver, filter);
+        }
+        checkNet();
     }
+
     /**
      * 使得在“setContentView()"之前生效，所以配置在此方法中。
+     *
      * @param newBase
      */
     @Override
@@ -47,6 +69,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 在某种情况下需要Activity的视图初始完毕Application中DisplayMetrics相关参数才能起效果，例如toast.
+     *
      * @param
      */
     @Override
@@ -55,22 +78,46 @@ public abstract class BaseActivity extends AppCompatActivity {
         ScreenUtil.resetDensity(this.getApplicationContext());
     }
 
+    /**
+     * 初始化时判断有没有网络
+     */
+    public boolean checkNet() {
+        this.netMobile = NetUtil.getInstance().getNetWorkState(BaseActivity.this);
+        return isNetConnect();
+    }
 
     /**
-     * 判断当前手机是否有网络连接, true, 有可用的网络连接；false,没有可用的网络连接
+     * 网络变化之后的类型
      */
-    public boolean isNetworkAvailable() {
-        ConnectivityManager manager = (ConnectivityManager)getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo info = manager.getActiveNetworkInfo();
-        if (manager == null || info == null || !info.isAvailable()) {
+    @Override
+    public void onChangeListener(int netMobile) {
+        this.netMobile = netMobile;
+        isNetConnect();
+
+    }
+
+    /**
+     * 判断有无网络 。
+     *
+     * @return true 有网, false 没有网络.
+     */
+    public boolean isNetConnect() {
+        if (netMobile == 1) {
+            return true;
+        } else if (netMobile == 0) {
+            return true;
+        } else if (netMobile == -1) {
             return false;
         }
-        return true;
+        return false;
     }
+
+
     /**
      * 显示当前 Fragment
+     *
      * @param var1     FrameLayout ID
-     * @param fragment  new Fragment();
+     * @param fragment new Fragment();
      */
     public void processView(@IdRes int var1, Fragment fragment) {
         manager = getSupportFragmentManager();
@@ -91,10 +138,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
-
     /**
      * 添加fragment   用 showFragment显示
-     * @param var1   FrameLayout ID
+     *
+     * @param var1     FrameLayout ID
      * @param fragment new Fragment();
      */
     public void addFragment(@IdRes int var1, Fragment fragment) {
@@ -106,10 +153,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @param fragment
      */
-    public void showFragment( Fragment fragment) {
+    public void showFragment(Fragment fragment) {
         manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
         hideFragment(transaction);
@@ -254,7 +300,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param resultCode
      * @param data
      */
-    private void handleResult(Fragment fragment, int requestCode, int resultCode, Intent data)  {
+    private void handleResult(Fragment fragment, int requestCode, int resultCode, Intent data) {
         fragment.onActivityResult(requestCode, resultCode, data);//调用每个Fragment的onActivityResult
         Log.e(TAG, "MyBaseFragmentActivity");
         List<Fragment> childFragment = fragment.getChildFragmentManager().getFragments(); //找到第二层Fragment
