@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 import com.library.depending.customview.ActionSheetDialog;
 import com.library.depending.utils.MyGlideEngine;
+import com.library.depending.utils.RequestCode;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.internal.entity.CaptureStrategy;
@@ -35,16 +36,10 @@ import java.util.List;
  * Created with IntelliJ IDEA
  */
 public class CameraUtils {
-    private static final int REQUEST_CODE_CHOOSE = 2222;
     private Uri cameraUri;//拍照后的路径
     private String cropUri;//裁剪后的路径
     private String cropSavePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath() + "/XiaoCao" + File.separator;
-    public static final int REQUEST_CODE_CAMERA = 110;//相机选择结果码
-    public static final int REQUEST_CODE_PHOTOS = 111;//相册选择结果码
-    public static final int REQUEST_CODE_PHOTOS_MORE = 1111;//相册选择结果码
-    public static final int RESULT_IMG_TAILOR = 114; //裁剪
-    public static final int REQUEST_CODE_FILE = 112;//文件选择结果码
-    public static final int REQUEST_CODE = 113; //相册多选
+
     private String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath(); // /storage/emulated/0/DCIM
     private static CameraUtils cameraUtils;
 
@@ -66,12 +61,12 @@ public class CameraUtils {
                 .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        openCamera(activity, REQUEST_CODE_CAMERA);
+                        openCamera(activity, RequestCode.REQUEST_CODE_CAMERA);
                     }
                 }).addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        openPhotoAlbum(activity, REQUEST_CODE_PHOTOS);
+                        openPhotoAlbum(activity,RequestCode. REQUEST_CODE_PHOTOS);
                     }
                 }).setCancelable(false).setCanceledOnTouchOutside(false);
 
@@ -96,7 +91,7 @@ public class CameraUtils {
                 .captureStrategy(new CaptureStrategy(true, authority))//参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与 AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
                 .imageEngine(new MyGlideEngine())//图片加载引擎
                 .theme(com.zhihu.matisse.R.style.Matisse_Dracula)
-                .forResult(REQUEST_CODE_CHOOSE);//
+                .forResult(RequestCode.REQUEST_CODE_CHOOSE);//
 
     }
     /**
@@ -110,12 +105,12 @@ public class CameraUtils {
                 .addSheetItem("拍照", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        openCamera(activity, REQUEST_CODE_CAMERA);
+                        openCamera(activity,RequestCode. REQUEST_CODE_CAMERA);
                     }
                 }).addSheetItem("相册", ActionSheetDialog.SheetItemColor.Blue, new ActionSheetDialog.OnSheetItemClickListener() {
                     @Override
                     public void onClick(int which) {
-                        ImageSelectorUtils.openPhoto(activity, REQUEST_CODE_PHOTOS_MORE, false, maxSelectCount);  //多选(最多9张)
+                        ImageSelectorUtils.openPhoto(activity, RequestCode.REQUEST_CODE_PHOTOS_MORE, false, maxSelectCount);  //多选(最多9张)
                     }
                 }).setCancelable(false).setCanceledOnTouchOutside(false);
         dialog.show();
@@ -132,19 +127,19 @@ public class CameraUtils {
     public List<Uri> getResult(Context context,int requestCode,Intent data) {
         List<Uri> list = new  ArrayList();
         switch (requestCode) {
-            case CameraUtils.REQUEST_CODE_CAMERA:
+            case RequestCode.REQUEST_CODE_CAMERA:
                 list.add(cameraUri);
                 break;
-            case CameraUtils.REQUEST_CODE_PHOTOS:
+            case RequestCode.REQUEST_CODE_PHOTOS:
                 list.add(data.getData());
                 break;
-            case CameraUtils.REQUEST_CODE_PHOTOS_MORE:
+            case RequestCode.REQUEST_CODE_PHOTOS_MORE:
                 ArrayList<String> arrayList =  data.getStringArrayListExtra(ImageSelectorUtils.SELECT_RESULT);
                 for (int i = 0; i < arrayList.size(); i++) {
                     list.add(getImageContentUri(context,arrayList.get(i)))  ;
                 }
                 break;
-            case REQUEST_CODE_CHOOSE:
+            case RequestCode.REQUEST_CODE_CHOOSE:
                 list =   Matisse.obtainResult(data);
             default:
                 break;
