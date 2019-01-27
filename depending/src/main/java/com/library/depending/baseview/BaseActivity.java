@@ -30,31 +30,26 @@ import java.util.List;
  * 自定义的基本Activity
  */
 public abstract class BaseActivity extends AppCompatActivity implements NetBroadcastReceiver.NetChangeListener {
+    private static final String TAG = "BaseActivity";
     public static NetBroadcastReceiver.NetChangeListener listener;
+
     /**
-     * 网络类型
+     * 实时监听网络变化
      */
-    private int netMobile;
+    private NetBroadcastReceiver netBroadcastReceiver;
+    private int netMobile;// 网络类型
     private FragmentManager manager;
     private FragmentTransaction transaction;
-    private NetBroadcastReceiver netBroadcastReceiver;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyActivityManager.getInstance().pushOneActivity(this);
-        listener = this;
-        //Android 7.0以上需要动态注册
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            //实例化IntentFilter对象
-            IntentFilter filter = new IntentFilter();
-            filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-            netBroadcastReceiver = new NetBroadcastReceiver();
-            //注册广播接收
-            registerReceiver(netBroadcastReceiver, filter);
-        }
+
         checkNet();
     }
+
 
     /**
      * 使得在“setContentView()"之前生效，所以配置在此方法中。
@@ -82,6 +77,16 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
      * 初始化时判断有没有网络
      */
     public boolean checkNet() {
+        listener = this;
+        //Android 7.0以上需要动态注册
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            //实例化IntentFilter对象
+            IntentFilter filter = new IntentFilter();
+            filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+            netBroadcastReceiver = new NetBroadcastReceiver();
+            //注册广播接收
+            registerReceiver(netBroadcastReceiver, filter);
+        }
         this.netMobile = NetUtil.getInstance().getNetWorkState(BaseActivity.this);
         return isNetConnect();
     }
@@ -93,7 +98,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
     public void onChangeListener(int netMobile) {
         this.netMobile = netMobile;
         isNetConnect();
-
     }
 
     /**
@@ -115,6 +119,8 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
 
     /**
      * 显示当前 Fragment
+     * 1、 实例化  Fragment 显示  processView
+     * 2、 移除实例 Fragment    removeFragment  不保存状态
      *
      * @param var1     FrameLayout ID
      * @param fragment new Fragment();
@@ -127,9 +133,10 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
         transaction.commit();
     }
 
-    /*
+    /**
      * 去除（隐藏）所有的Fragment
-     * */
+     * 与processView
+     */
     private void removeFragment(FragmentTransaction transaction) {
         List<Fragment> frmlist = manager.getFragments();
         for (int i = 0; i < frmlist.size(); i++) {
@@ -140,6 +147,8 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
 
     /**
      * 添加fragment   用 showFragment显示
+     * 1。先添加 addFragment
+     * 2、显示某一个  showFragment  其他隐藏掉   保存状态
      *
      * @param var1     FrameLayout ID
      * @param fragment new Fragment();
@@ -153,6 +162,8 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
     }
 
     /**
+     * 显示fragment
+     *
      * @param fragment
      */
     public void showFragment(Fragment fragment) {
@@ -242,6 +253,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
 
     /**
      * 设置全屏  true ：全屏 false ：取消全屏
+     * 在    setContentView(R.layout.activity_main);之前
      */
     public void setFullScreen(boolean b) {
         if (b) {
@@ -249,7 +261,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); // 取消全屏
         }
-
     }
 
     /**
@@ -276,8 +287,14 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private static final String TAG = "BaseActivity";
 
+    /**
+     * 参数传到 Fragment
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -21,9 +21,6 @@ public class NetUtil {
     private static final int NETWORK_WIFI = 1;
 
     private static NetUtil netUtil;
-//    String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";
-//    estimate(message1);
-//    String message2 = "[{\"key\":\"value\"},{\"key\":\"value\"},{\"key\":\"value\"}]";
 
     /**
      * 单例模式
