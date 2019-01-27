@@ -9,11 +9,12 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#373b3e">
+        android:background="#000000">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/distance_10">
 
             <ImageView
                 android:id="@+id/back_iv"
@@ -30,9 +31,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="15dp"
-                android:layout_toEndOf="@id/back_iv"
                 android:textColor="@color/colorWhite"
+                android:layout_centerHorizontal="true"
                 android:textSize="18sp"
                 tools:text="1/1" />
 
@@ -46,8 +46,7 @@
                 android:contentDescription="@null"
                 android:padding="10dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/ic_z_delete"
-                android:visibility="gone" />
+                android:src="@drawable/ic_z_delete" />
         </RelativeLayout>
 
     </android.support.v7.widget.Toolbar>

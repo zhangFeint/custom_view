@@ -101,12 +101,12 @@ public class MorePicturesAdapter extends android.widget.BaseAdapter {
     public void setItem(AdapterView<?> parent, View view, int position, View.OnClickListener listener) {
         if (position == parent.getChildCount() - 1) {
             if (mList.size() == maximum) {   //如果“增加按钮形状的”图片的位置是最后一张，且添加了的图片的数量不超过5张，才能点击
-                PlusImageActivity.show((Activity) mContext, (ArrayList<String>) mList, position, PlusImageActivity.REQUEST_CODE_MAIN); //最多添加N张图片
+                PlusImageActivity.show((Activity) mContext, (ArrayList<String>) mList, position, RequestCode.REQUEST_CODE_MAIN); //最多添加N张图片
             } else {
                 listener.onClick(view);
             }
         } else {
-            PlusImageActivity.show((Activity) mContext, (ArrayList<String>) mList, position, PlusImageActivity.REQUEST_CODE_MAIN); //最多添加N张图片
+            PlusImageActivity.show((Activity) mContext, (ArrayList<String>) mList, position, RequestCode.REQUEST_CODE_MAIN); //最多添加N张图片
         }
     }
 

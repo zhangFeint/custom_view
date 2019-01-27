@@ -31,15 +31,22 @@ public class GuideActivity extends BaseActivity {
 
     private CountDownTimer countDownTimer;
     private static final String KET_INT = "key_int";
-    private static final String KET_CLASS = "ket_class";
     private boolean isScrolled;
-    private int[] images;
+    private static int[] images;
     private static Class<?> clss;
+    private static int time;
 
-    public static void show(Context context, int[] value, Class<?> cls) {
+    /**
+     * @param context
+     * @param time1   4000  倒计时
+     * @param value   图片集合  R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}
+     * @param cls     要跳转的地方
+     */
+    public static void show(Context context, int time1, int[] value, Class<?> cls) {
         clss = cls;
+        time = time1;
+        images = value;
         Intent intent = new Intent(context, GuideActivity.class);
-        intent.putExtra(KET_INT, value);
         context.startActivity(intent);
     }
 
@@ -63,16 +70,10 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void initData() {
-        Intent intent = getIntent();
-        images = intent.getIntArrayExtra(KET_INT);
-        setCountdown(tvTime, 4000);
+        setCountdown(tvTime, time);
         initAdapter();
     }
 
-    @Override
-    public void initListener() {
-
-    }
 
     /**
      * 第二步  加入适配器
@@ -160,10 +161,9 @@ public class GuideActivity extends BaseActivity {
 
 
     public void goHomePage() {
-        Intent intent = new Intent(this,clss);
+        Intent intent = new Intent(this, clss);
         startActivity(intent);
         finish();
-        Toast.makeText(this, "跳转主页", Toast.LENGTH_SHORT).show();
     }
 
     private void onPageListener(int position) {

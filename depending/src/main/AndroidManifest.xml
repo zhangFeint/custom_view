@@ -27,7 +27,6 @@
 
         <!-- 图片预览 -->
         <activity android:name=".view.PlusImageActivity" />
-        <activity android:name=".view.ImageActivity" />
 
         <!--图片选择Activity-->
         <activity android:name="com.donkingliang.imageselector.ImageSelectorActivity" />

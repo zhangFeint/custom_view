@@ -14,15 +14,17 @@ import android.widget.Toast;
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.customview.LoadingDialog;
 import com.library.depending.utils.JsonUtils;
+import com.library.depending.utils.RequestCode;
 import com.library.depending.view.CameraUtils;
 import com.library.depending.view.CityPicker;
 import com.library.depending.view.GuideActivity;
-import com.library.depending.view.ImageActivity;
+import com.library.depending.view.PlusImageActivity;
 import com.library.depending.webview.PermissionUtils;
 import com.library.depending.webview.WebActivity;
 
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button button1, button2, button3, button4, button5, button6, button7;
@@ -34,7 +36,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         initViews();
         initListener();
-        setOrientation(true);
+        setOrientation(false);
     }
 
     @Override
@@ -89,7 +91,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button1:
-                ImageActivity.show(this, "http://b-ssl.duitang.com/uploads/item/201407/23/20140723083033_jwNEm.png");
+                ArrayList<String> list = new ArrayList();
+                list.add("http://b-ssl.duitang.com/uploads/item/201407/23/20140723083033_jwNEm.png");
+                list.add("http://b-ssl.duitang.com/uploads/item/201503/20/20150320220039_PBckv.jpeg");
+                PlusImageActivity.show(this,list,0, RequestCode.REQUEST_CODE_MAIN);
                 break;
             case R.id.button2:
                 WebActivity.show(MainActivity.this, "https://www.baidu.com/");
@@ -98,7 +103,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 CameraUtils.getInstance().showCameraDialog(this);
                 break;
             case R.id.button4:
-                GuideActivity.show(this, new int[]{R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
+                GuideActivity.show(this,8000, new int[]{R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
                 break;
             case R.id.button5:
                 CityPicker.getInstance().show(new CityPicker.OnCityClickListener() {
@@ -148,7 +153,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         if (resultCode != RESULT_OK) {//操作失败
             return;
         }
-        resetCameraResult(CameraUtils.getInstance().getResult(this, requestCode, data).get(0));
+//        resetCameraResult(CameraUtils.getInstance().getResult(this, requestCode, data).get(0));
     }
 
     private void resetCameraResult(Uri url) {

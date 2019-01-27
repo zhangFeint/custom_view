@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
@@ -28,21 +29,36 @@ import java.util.List;
  * 多图片预览界面
  */
 public class PlusImageActivity extends BaseActivity implements ViewPager.OnPageChangeListener, View.OnClickListener {
-    public static final String IMG_LIST = "img_list"; //第几张图片
-    public static final String POSITION = "position"; //第几张图片
-    public static final int REQUEST_CODE_MAIN = 101; //请求码
+    public final String IMG_LIST = "img_list"; //第几张图片
+
     private ViewPager viewPager; //展示图片的ViewPager
     private TextView positionTv; //图片的位置，第几张图片
-    private ArrayList<String> imgList; //图片的数据源
-    private int mPosition; //第几张图片
+    private static ArrayList<String> imgList; //图片的数据源
+    private static int mPosition = 0; //第几张图片
     private ViewPagerAdapter mAdapter;
     private ImageView back_iv, delete_iv;
+    private static boolean isDelete =false;
 
+    /**
+     * @param mContext
+     * @param mPicList    图片集合
+     * @param position
+     * @param requestCode
+     */
     //查看大图
-    public static void show(Activity mContext, ArrayList<String> mPicList, int position,int requestCode) {
+    public static void show(Activity mContext, ArrayList<String> mPicList, int position, int requestCode) {
+        show(mContext, mPicList, position, requestCode, false);
+    }
+
+    public static void show(Activity mContext, ArrayList<String> mPicList, int position, int requestCode, boolean is) {
+        isDelete = is;
+        mPosition = position;
+        imgList = mPicList;
+        if (imgList.size() <= position) {
+            Toast.makeText(mContext, "图片过多", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(mContext, PlusImageActivity.class);
-        intent.putStringArrayListExtra(IMG_LIST, mPicList);
-        intent.putExtra(POSITION, position);
         mContext.startActivityForResult(intent, requestCode);
     }
 
@@ -50,8 +66,6 @@ public class PlusImageActivity extends BaseActivity implements ViewPager.OnPageC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plus_image);
-        imgList = getIntent().getStringArrayListExtra(IMG_LIST);
-        mPosition = getIntent().getIntExtra(POSITION, 0);
         initViews();
     }
 
@@ -61,6 +75,11 @@ public class PlusImageActivity extends BaseActivity implements ViewPager.OnPageC
         positionTv = findViewById(R.id.position_tv);
         back_iv = findViewById(R.id.back_iv);
         delete_iv = findViewById(R.id.delete_iv);
+        if(isDelete){
+            delete_iv.setVisibility(View.VISIBLE);
+        }else {
+            delete_iv.setVisibility(View.GONE);
+        }
         initListener();
         initAdapter();
     }
@@ -101,7 +120,6 @@ public class PlusImageActivity extends BaseActivity implements ViewPager.OnPageC
         int i = v.getId();
         if (i == R.id.back_iv) {//返回
             back();
-
         } else if (i == R.id.delete_iv) {//删除图片
             deletePic();
 
