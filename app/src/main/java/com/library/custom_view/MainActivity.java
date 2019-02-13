@@ -23,6 +23,8 @@ import com.library.depending.webview.PermissionUtils;
 import com.library.depending.webview.WebActivity;
 
 
+import org.json.JSONException;
+
 import java.io.File;
 import java.util.ArrayList;
 
@@ -55,7 +57,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onChangeListener(int netMobile) {
         super.onChangeListener(netMobile);
-        Log.d("onNetChange1111: ", ""+isNetConnect());
+        Log.d("onNetChange1111: ", "" + isNetConnect());
     }
 
     @Override
@@ -94,7 +96,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 ArrayList<String> list = new ArrayList();
                 list.add("http://b-ssl.duitang.com/uploads/item/201407/23/20140723083033_jwNEm.png");
                 list.add("http://b-ssl.duitang.com/uploads/item/201503/20/20150320220039_PBckv.jpeg");
-                PlusImageActivity.show(this,list,0, RequestCode.REQUEST_CODE_MAIN);
+                PlusImageActivity.show(this, list, 0, RequestCode.REQUEST_CODE_MAIN);
                 break;
             case R.id.button2:
                 WebActivity.show(MainActivity.this, "https://www.baidu.com/");
@@ -103,7 +105,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 CameraUtils.getInstance().showCameraDialog(this);
                 break;
             case R.id.button4:
-                GuideActivity.show(this,8000, new int[]{R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
+                GuideActivity.show(this, 8000, new int[]{R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
                 break;
             case R.id.button5:
                 CityPicker.getInstance().show(new CityPicker.OnCityClickListener() {
@@ -134,15 +136,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                        });
 //                    }
 //                });
-                LoadingDialog dialog = new LoadingDialog(this,"加载中。。。");
-
+                LoadingDialog dialog = new LoadingDialog(this, "加载中。。。");
                 dialog.show();
                 break;
             case R.id.button7:
                 String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";
-                JsonUtils.getInstance().estimate(message1);
                 String message2 = "[{\"key\":\"value\"},{\"key\":\"value\"},{\"key\":\"value\"}]";
-                JsonUtils.getInstance().estimate(message2);
+                String message3 = "key:value";
+                System.out.println(JsonUtils.getInstance().estimate(message1));
+                System.out.println(JsonUtils.getInstance().estimate(message2));
+                System.out.println(JsonUtils.getInstance().estimate(message3));
                 break;
         }
     }
