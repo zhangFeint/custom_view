@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.net.Uri;
+import android.os.Build;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.webkit.GeolocationPermissions;
@@ -13,7 +14,6 @@ import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.widget.ProgressBar;
 
 
 /**
@@ -21,54 +21,30 @@ import android.widget.ProgressBar;
  */
 public class MyWebChromeClient extends WebChromeClient {
     private Activity activity;
-    private ProgressBar progressBar;
-    private Dialog loadingPd;
+
     public static final String[] CAMERA_PERMISSIONS = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}; //相机权限
     public static final int REQUEST_CODE_PERMISSION = 1010; //权限请求码
+    private OnProgressChangedListener onProgressChangedListener;
 
-
-    public MyWebChromeClient(Activity activity, ProgressBar progressBar) {
+    public MyWebChromeClient(Activity activity,OnProgressChangedListener onProgressChangedListener) {
         this.activity = activity;
-        this.progressBar = progressBar;
-    }
-
-    public MyWebChromeClient(Activity activity, Dialog loadingPd) {
-        this.activity = activity;
-        this.loadingPd = loadingPd;
+        this.onProgressChangedListener = onProgressChangedListener;
     }
 
 
-    /**
-     * 作用：获取Web页中的标题
-     * android 6.0 以下通过title获取
-     */
-    @Override
-    public void onReceivedTitle(WebView view, String title) {
-        super.onReceivedTitle(view, title);
-    }
 
       /**
      * 作用：获得网页的加载进度并显示
      */
     @Override
     public void onProgressChanged(WebView view, int newProgress) {
-        if (progressBar != null) {
-            if (newProgress == 100) {
-                progressBar.setVisibility(View.GONE);//加载完网页进度条消失
-            } else {
-                progressBar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
-                progressBar.setProgress(newProgress);//设置进度值
-            }
+        if(onProgressChangedListener  == null){
+            return;
         }
-        if (loadingPd != null) {
-            if (newProgress == 100) {
-                if (loadingPd.isShowing()) { //加载完网页进度条消失
-                    loadingPd.dismiss();
-                }
-            } else {
-                loadingPd.setTitle("正在加载...");
-                loadingPd.show();
-            }
+        if (newProgress == 100) {
+            onProgressChangedListener.conceal();
+        } else {
+            onProgressChangedListener.show(newProgress);
         }
         super.onProgressChanged(view, newProgress);
     }

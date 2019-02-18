@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.H5PayCallback;
@@ -31,7 +35,7 @@ public class MyWebViewClient extends WebViewClient {
     private String qq = "mqqwpa:";
     private String wenxin = "weixin://wap/pay?";
     private String phone = "tel:";
-    private String errorPath = "file:/android_asset/Networkoutage/webview404.html";
+
     private  OnOverrideUrlLoadingListener onOverrideUrlLoading;
 
     public MyWebViewClient(Activity activity, String murl,OnOverrideUrlLoadingListener onOverrideUrlLoading) {
@@ -43,24 +47,33 @@ public class MyWebViewClient extends WebViewClient {
 
     /**
      * 加载页面的服务器出现错误时（如404）调用。
+     * 6.0以下执行
      */
 
     @Override
     public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
         super.onReceivedError(view, errorCode, description, failingUrl);
-        //6.0以下执行
-        //网络未连接
-        view.loadUrl("about:blank"); // 避免出现默认的错误界面
-        view.loadUrl(errorPath);
+        onOverrideUrlLoading.onReceivedError(view,errorCode);
     }
-
-    //处理网页加载失败时
+    /**
+     * 加载页面的服务器出现错误时（如404）调用。
+     * 6.0以上执行
+     */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
         super.onReceivedError(view, request, error);
-        //6.0以上执行
-        view.loadUrl("about:blank"); // 避免出现默认的错误界面
-        view.loadUrl(errorPath);
+        onOverrideUrlLoading.onReceivedError(view,error.getErrorCode());
+    }
+
+    /**
+     * 显示自定义错误提示页面，用一个View覆盖在WebView
+     */
+    public void showErrorPage(ViewGroup viewGroup, View mErrorView) {
+
+        viewGroup.removeAllViews(); //移除加载网页错误时，默认的提示信息
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        viewGroup.addView(mErrorView, 0, layoutParams); //添加自定义的错误提示的View
     }
     /**
      * 接受信任所有网站的证书

@@ -20,7 +20,7 @@ public class WebActivity extends AppCompatActivity {
     private String murl;
     private WebView webview;
     private ProgressBar progressbar;
-
+    private String errorPath = "file:/android_asset/Networkoutage/webview404.html";
     public static void show(Context act, String url) {
         Intent intent = new Intent(act, WebActivity.class);
         intent.putExtra("url", url);
@@ -46,7 +46,18 @@ public class WebActivity extends AppCompatActivity {
         murl = intent1.getStringExtra("url");
         WebviewUtil webviewUtils = new WebviewUtil(WebActivity.this, webview);
         webviewUtils.setConfig();
-        webviewUtils.WebChromeClient(new MyWebChromeClient(WebActivity.this, progressbar));
+        webviewUtils.WebChromeClient(new MyWebChromeClient(WebActivity.this, new OnProgressChangedListener() {
+            @Override
+            public void show(int progress) {
+                progressbar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                progressbar.setProgress(progress);//设置进度值
+            }
+
+            @Override
+            public void conceal() {
+                progressbar.setVisibility(View.GONE);//开始加载网页时显示进度条
+            }
+        }));
         webviewUtils.setWebViewClient(new MyWebViewClient(WebActivity.this, murl, new OnOverrideUrlLoadingListener() {
             @Override
             public void shouldOverrideUrlLoading(WebView view, String url) {
@@ -55,8 +66,19 @@ public class WebActivity extends AppCompatActivity {
                 extraHeaders.put("Referer", "");
                 view.loadUrl(url, extraHeaders);//加载页面
             }
+
+            /**
+             * @param view
+             * @param errorCode
+             */
+            @Override
+            public void onReceivedError(WebView view, int errorCode) {
+                view.loadUrl("about:blank"); // 避免出现默认的错误界面
+                view.loadUrl(errorPath);
+            }
+
         }));
-        webviewUtils.setDownloadListener(new MyWebViewDownLoadListener(WebActivity.this,true));
+        webviewUtils.setDownloadListener(new MyWebViewDownLoadListener(WebActivity.this, true));
 //        webviewUtils.addJavascriptInterface(new JavaScriptinterface(this));
         webviewUtils.startloadUrl(webview, murl);
 

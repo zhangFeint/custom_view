@@ -21,6 +21,7 @@ public class WebNavigationActivity extends AppCompatActivity {
     private WebView webview;
     private ProgressBar progressbar;
     private TextView tv_close;
+    private String errorPath = "file:/android_asset/Networkoutage/webview404.html";
     public static void show(Context act, String url) {
         Intent intent = new Intent(act, WebNavigationActivity.class);
         intent.putExtra("url", url);
@@ -51,11 +52,28 @@ public class WebNavigationActivity extends AppCompatActivity {
         murl = intent1.getStringExtra("url");
         WebviewUtil webviewUtils = new WebviewUtil(WebNavigationActivity.this, webview);
         webviewUtils.setConfig();
-        webviewUtils.WebChromeClient(new MyWebChromeClient(WebNavigationActivity.this, progressbar));
+        webviewUtils.WebChromeClient(new MyWebChromeClient(WebNavigationActivity.this,  new OnProgressChangedListener() {
+            @Override
+            public void show(int progress) {
+                progressbar.setVisibility(View.VISIBLE);//开始加载网页时显示进度条
+                progressbar.setProgress(progress);//设置进度值
+            }
+
+            @Override
+            public void conceal() {
+                progressbar.setVisibility(View.GONE);//开始加载网页时显示进度条
+            }
+        }));
         webviewUtils.setWebViewClient(new MyWebViewClient(WebNavigationActivity.this, murl, new OnOverrideUrlLoadingListener() {
             @Override
             public void shouldOverrideUrlLoading(WebView view, String url) {
                 WebNavigationActivity.show(WebNavigationActivity.this,url);
+            }
+
+            @Override
+            public void onReceivedError(WebView view, int errorCode) {
+                view.loadUrl("about:blank"); // 避免出现默认的错误界面
+                view.loadUrl(errorPath);
             }
         }));
         webviewUtils.setDownloadListener(new MyWebViewDownLoadListener(WebNavigationActivity.this,true));

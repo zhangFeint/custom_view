@@ -16,7 +16,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 
 import com.library.depending.broadcast.NetBroadcastReceiver;
@@ -249,7 +253,14 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
         }
         return true;
     }
-
+    /**
+     * 显示自定义错误提示页面，用一个View覆盖在WebView
+     */
+    public void showErrorPage(ViewGroup viewGroup, View mErrorView) {
+        viewGroup.removeAllViews(); //移除加载网页错误时，默认的提示信息
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        viewGroup.addView(mErrorView, 0, layoutParams); //添加自定义的错误提示的View
+    }
 
     /**
      * 设置全屏  true ：全屏 false ：取消全屏
