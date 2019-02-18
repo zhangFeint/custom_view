@@ -32,7 +32,6 @@ public class MyWebViewDownLoadListener implements DownloadListener {
     public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
         if (isSourceRaw) {
             new Thread(new DownLoadThread(url)).start();
-
         } else {
             Uri uri = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, uri);

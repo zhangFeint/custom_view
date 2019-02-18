@@ -60,7 +60,7 @@ public class WebviewUtil {
         webSettings.setSaveFormData(true);
         webSettings.setJavaScriptEnabled(true);
         webSettings.setGeolocationEnabled(true);
-        webSettings.setGeolocationDatabasePath("http://www.cvbaoli.com/webak/public/showAgreement");
+//        webSettings.setGeolocationDatabasePath("http://www.cvbaoli.com/webak/public/showAgreement");
         webSettings.setDomStorageEnabled(true);
         /**
          *  Webview在安卓5.0之前默认允许其加载混合网络协议内容
@@ -100,8 +100,9 @@ public class WebviewUtil {
     public void startloadUrl(WebView webview, String murl) {
         webview.loadData("", "text/html", "UTF-8");  //解决部分手机调用不到js的
         Map extraHeaders = new HashMap(); //解决微信支付少参数问题
-        extraHeaders.put("Referer", "http://apprzs.ngrok.xiaomiqiu.cn");
+        extraHeaders.put("Referer", "");
         webview.loadUrl(murl, extraHeaders);//加载页面
+
     }
 
 

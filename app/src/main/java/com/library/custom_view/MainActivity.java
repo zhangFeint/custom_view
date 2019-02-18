@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 PlusImageActivity.show(this, list, 0, RequestCode.REQUEST_CODE_MAIN);
                 break;
             case R.id.button2:
-                WebActivity.show(MainActivity.this, "https://www.baidu.com/");
+                WebActivity.show(MainActivity.this, "https://www.baidu.com");
                 break;
             case R.id.button3:
                 CameraUtils.getInstance().showCameraDialog(this);

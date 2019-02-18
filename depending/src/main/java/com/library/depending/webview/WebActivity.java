@@ -11,6 +11,9 @@ import android.widget.ProgressBar;
 
 import com.library.depending.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class WebActivity extends AppCompatActivity {
 
@@ -44,7 +47,15 @@ public class WebActivity extends AppCompatActivity {
         WebviewUtil webviewUtils = new WebviewUtil(WebActivity.this, webview);
         webviewUtils.setConfig();
         webviewUtils.WebChromeClient(new MyWebChromeClient(WebActivity.this, progressbar));
-        webviewUtils.setWebViewClient(new MyWebViewClient(WebActivity.this, murl));
+        webviewUtils.setWebViewClient(new MyWebViewClient(WebActivity.this, murl, new OnOverrideUrlLoadingListener() {
+            @Override
+            public void shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadData("", "text/html", "UTF-8");  //解决部分手机调用不到js的
+                Map extraHeaders = new HashMap(); //解决微信支付少参数问题
+                extraHeaders.put("Referer", "");
+                view.loadUrl(url, extraHeaders);//加载页面
+            }
+        }));
         webviewUtils.setDownloadListener(new MyWebViewDownLoadListener(WebActivity.this,true));
 //        webviewUtils.addJavascriptInterface(new JavaScriptinterface(this));
         webviewUtils.startloadUrl(webview, murl);

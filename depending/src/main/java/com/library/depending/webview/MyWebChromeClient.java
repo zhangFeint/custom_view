@@ -134,6 +134,11 @@ public class MyWebChromeClient extends WebChromeClient {
         return true;
     }
 
+    /**
+     * 显示弹出框
+     * @param message
+     * @param result
+     */
     public void showDialog( String message, final JsResult result) {
         AlertDialog.Builder b = new AlertDialog.Builder(activity);
         b.setMessage(message);

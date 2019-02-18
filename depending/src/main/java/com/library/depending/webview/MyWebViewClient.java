@@ -1,16 +1,11 @@
 package com.library.depending.webview;
 
-/**
- * Created by Administrator on 2017\11\23 0023.
- */
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.net.http.SslError;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
@@ -23,8 +18,7 @@ import com.alipay.sdk.app.H5PayCallback;
 import com.alipay.sdk.app.PayTask;
 import com.alipay.sdk.util.H5PayResultModel;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 
 /**
@@ -38,17 +32,12 @@ public class MyWebViewClient extends WebViewClient {
     private String wenxin = "weixin://wap/pay?";
     private String phone = "tel:";
     private String errorPath = "file:/android_asset/Networkoutage/webview404.html";
-    private boolean isSourceRaw = false;
+    private  OnOverrideUrlLoadingListener onOverrideUrlLoading;
 
-
-    public MyWebViewClient(Activity activity, String murl) {
+    public MyWebViewClient(Activity activity, String murl,OnOverrideUrlLoadingListener onOverrideUrlLoading) {
         this.activity = activity;
         this.murl = murl;
-    }
-    public MyWebViewClient(Activity activity, String murl,boolean sourceRaw) {
-        this.activity = activity;
-        this.murl = murl;
-        isSourceRaw = sourceRaw;
+        this.onOverrideUrlLoading = onOverrideUrlLoading;
     }
 
 
@@ -57,12 +46,22 @@ public class MyWebViewClient extends WebViewClient {
      */
 
     @Override
-    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-        super.onReceivedError(view,request,error);
+    public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+        super.onReceivedError(view, errorCode, description, failingUrl);
+        //6.0以下执行
+        //网络未连接
         view.loadUrl("about:blank"); // 避免出现默认的错误界面
         view.loadUrl(errorPath);
     }
 
+    //处理网页加载失败时
+    @Override
+    public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+        super.onReceivedError(view, request, error);
+        //6.0以上执行
+        view.loadUrl("about:blank"); // 避免出现默认的错误界面
+        view.loadUrl(errorPath);
+    }
     /**
      * 接受信任所有网站的证书
      */
@@ -76,7 +75,6 @@ public class MyWebViewClient extends WebViewClient {
      */
     @Override
     public boolean shouldOverrideUrlLoading(final WebView view, String url) {
-        Log.i("MyWebViewClient", "shouldOverrideUrlLoading" + url);
         final PayTask task = new PayTask(activity);//跳转到支付宝,推荐采用的新的二合一接口(payInterceptorWithUrl),只需调用一次
         boolean isIntercepted = task.payInterceptorWithUrl(url, true, new H5PayCallback() {
             @Override
@@ -97,14 +95,7 @@ public class MyWebViewClient extends WebViewClient {
                         Toast.makeText(activity, "启动异常！\n请检查是否安装了该应用.", Toast.LENGTH_SHORT).show();
                     }
                 } else if (url.startsWith("http:") || url.startsWith("https:")) {
-                    if (isSourceRaw) {
-                        WebNavigationActivity.show(activity, url);
-                    } else {
-                        view.loadData("", "text/html", "UTF-8");  //解决部分手机调用不到js的
-                        Map extraHeaders = new HashMap(); //解决微信支付少参数问题
-                        extraHeaders.put("Referer", "");
-                        view.loadUrl(url, extraHeaders);//""加载页面
-                    }
+                    onOverrideUrlLoading.shouldOverrideUrlLoading(view,url);
                     return true;//返回true表明点击网页里面的链接还是在当前的webview里跳转，不跳到浏览器那边
                 }
         return super.shouldOverrideUrlLoading(view,url);

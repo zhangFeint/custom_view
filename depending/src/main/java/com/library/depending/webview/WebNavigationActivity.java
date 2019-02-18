@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.library.depending.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class WebNavigationActivity extends AppCompatActivity {
     private String murl;
@@ -49,7 +52,12 @@ public class WebNavigationActivity extends AppCompatActivity {
         WebviewUtil webviewUtils = new WebviewUtil(WebNavigationActivity.this, webview);
         webviewUtils.setConfig();
         webviewUtils.WebChromeClient(new MyWebChromeClient(WebNavigationActivity.this, progressbar));
-        webviewUtils.setWebViewClient(new MyWebViewClient(WebNavigationActivity.this, murl,true));
+        webviewUtils.setWebViewClient(new MyWebViewClient(WebNavigationActivity.this, murl, new OnOverrideUrlLoadingListener() {
+            @Override
+            public void shouldOverrideUrlLoading(WebView view, String url) {
+                WebNavigationActivity.show(WebNavigationActivity.this,url);
+            }
+        }));
         webviewUtils.setDownloadListener(new MyWebViewDownLoadListener(WebNavigationActivity.this,true));
 //        webviewUtils.addJavascriptInterface(new JavaScriptinterface(this));
         webviewUtils.startloadUrl(webview, murl);
