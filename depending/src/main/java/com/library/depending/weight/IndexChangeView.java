@@ -159,20 +159,8 @@ public class IndexChangeView extends View {
         for (int i = 0; i < number; i++) {
             // 偶数个
             if (number % 2 == 0) {
-                if (half - 1 == i) {
-                    float temp = w / 2 - 10;
-                    widthLists.add(i, temp);
-                } else if (half == i) {
-                    float temp = w / 2 + 10;
-                    widthLists.add(i, temp);
-                } else if (i < half - 1) {
-                    // 一般宽度 - 使用过的宽度
-                    float temp = w / 2 - ((half - (i + 1)) *distance + 10);
-                    widthLists.add(i, temp);
-                } else if (i > half) {
                     float temp = w / 2 + ((i - half) * distance + 10);
                     widthLists.add(i, temp);
-                }
             } else {
                 // 奇数个
                 if (i == half) {

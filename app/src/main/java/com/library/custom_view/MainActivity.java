@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 CameraUtils.getInstance().showCameraDialog(this);
                 break;
             case R.id.button4:
-                GuideActivity.show(this, 8000, new int[]{R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
+                GuideActivity.show(this, 8000, new int[]{R.mipmap.splash1, R.mipmap.splash2,R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
                 break;
             case R.id.button5:
                 CityPicker.getInstance().show(new CityPicker.OnCityClickListener() {

@@ -30,7 +30,6 @@ public class GuideActivity extends BaseActivity {
     private TextView tvTime;
 
     private CountDownTimer countDownTimer;
-    private static final String KET_INT = "key_int";
     private boolean isScrolled;
     private static int[] images;
     private static Class<?> clss;
@@ -70,6 +69,7 @@ public class GuideActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        indexChangeView.setNumber(images.length);
         setCountdown(tvTime, time);
         initAdapter();
     }

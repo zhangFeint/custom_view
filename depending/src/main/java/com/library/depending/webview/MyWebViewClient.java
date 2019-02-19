@@ -15,7 +15,6 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.alipay.sdk.app.H5PayCallback;
@@ -31,7 +30,6 @@ import com.alipay.sdk.util.H5PayResultModel;
 public class MyWebViewClient extends WebViewClient {
     private Activity activity;
     private String murl;
-
     private String qq = "mqqwpa:";
     private String wenxin = "weixin://wap/pay?";
     private String phone = "tel:";
@@ -66,15 +64,7 @@ public class MyWebViewClient extends WebViewClient {
         onOverrideUrlLoading.onReceivedError(view,error.getErrorCode());
     }
 
-    /**
-     * 显示自定义错误提示页面，用一个View覆盖在WebView
-     */
-    public void showErrorPage(ViewGroup viewGroup, View mErrorView) {
 
-        viewGroup.removeAllViews(); //移除加载网页错误时，默认的提示信息
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        viewGroup.addView(mErrorView, 0, layoutParams); //添加自定义的错误提示的View
-    }
     /**
      * 接受信任所有网站的证书
      */
