@@ -89,10 +89,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-//                if (PermissionUtils.isPermissionRequestSuccess(grantResults)) {
-//                    Toast.makeText(this, "申请成功", Toast.LENGTH_SHORT).show();
-//                }
         PermissionUtils.onRequestMorePermissionsResult(MainActivity.this, permissions, new PermissionUtils.PermissionCheckCallBack() {
             @Override
             public void onHasPermission() {

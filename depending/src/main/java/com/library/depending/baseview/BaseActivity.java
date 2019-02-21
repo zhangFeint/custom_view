@@ -50,7 +50,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyActivityManager.getInstance().pushOneActivity(this);
-
         checkNet();
     }
 
@@ -84,12 +83,10 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
         listener = this;
         //Android 7.0以上需要动态注册
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            //实例化IntentFilter对象
-            IntentFilter filter = new IntentFilter();
+            IntentFilter filter = new IntentFilter();  //实例化IntentFilter对象
             filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
             netBroadcastReceiver = new NetBroadcastReceiver();
-            //注册广播接收
-            registerReceiver(netBroadcastReceiver, filter);
+            registerReceiver(netBroadcastReceiver, filter);  //注册广播接收
         }
         this.netMobile = NetUtil.getInstance().getNetWorkState(BaseActivity.this);
         return isNetConnect();
