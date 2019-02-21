@@ -53,10 +53,10 @@ public abstract class WelcomeActivity extends Activity {
         if (isFirstRun) {
             editor.putBoolean(IS_FIRST_RUN, false);
             editor.commit();
-            Log.i("WelcomeActivity", "首次运行");
+            Log.d("WelcomeActivity", "首次运行");
             mhandler.sendEmptyMessageDelayed(GO_GUIDE, DELAYED_TIME);
         } else {
-            Log.i("WelcomeActivity", "多次运行");
+            Log.d("WelcomeActivity", "多次运行");
             mhandler.sendEmptyMessageDelayed(GO_MAIN, DELAYED_TIME);
         }
     }

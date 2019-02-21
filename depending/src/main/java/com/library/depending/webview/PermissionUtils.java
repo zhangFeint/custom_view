@@ -6,25 +6,22 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <pre>
- *     author : FaDai
- *     e-mail : i_fadai@163.com
- *     time   : 2017/06/13
- *     desc   : xxxx描述
- *     version: 1.0
- * </pre>
+ * @author：zhangerpeng 版本：
+ * 日期：2019\2\19 0019
+ * 描述：
  */
-
 public class PermissionUtils {
     public static final String[] CAMERA_PERMISSIONS = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}; //相机权限
     public static final String[] SD_WRITE_READ_PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}; //往SDCard写入数据权限
     public static final String[] PHONE_PERMISSIONS = {Manifest.permission.CALL_PHONE};//打电话权限
+
     /**
      * 检测权限
      *
@@ -39,6 +36,35 @@ public class PermissionUtils {
 
     /**
      * 检测多个权限(推荐)
+     *
+     * @describe：具体实现由回调接口决定
+     */
+
+    public static void checkMorePermissions(Activity activity, String[] permissions, PermissionCheckCallBack callBack) {
+        List<String> permissionList = checkMorePermissions(activity, permissions);
+        if (permissionList.size() == 0) {  // 用户已授予权限
+            callBack.onHasPermission();
+        } else {
+            boolean isFirst = true;
+            for (int i = 0; i < permissionList.size(); i++) {
+                String permission = permissionList.get(i);
+                if (judgePermission(activity, permission)) {
+                    isFirst = false;
+                    break;
+                }
+            }
+            String[] unauthorizedMorePermissions = (String[]) permissionList.toArray(new String[permissionList.size()]);
+            if (isFirst) {// 用户之前已拒绝并勾选了不在询问、用户第一次申请权限。
+                callBack.onUserHasAlreadyTurnedDownAndDontAsk(unauthorizedMorePermissions);
+            } else {     // 用户之前已拒绝过权限申请
+                callBack.onUserHasAlreadyTurnedDown(unauthorizedMorePermissions);
+            }
+        }
+    }
+
+
+    /**
+     * 检测多个权限
      *
      * @return 未授权的权限
      */
@@ -67,32 +93,6 @@ public class PermissionUtils {
         }
     }
 
-    /**
-     * 检测多个权限
-     *
-     * @describe：具体实现由回调接口决定
-     */
-    public static void checkMorePermissions(Activity activity, String[] permissions, PermissionCheckCallBack callBack) {
-        List<String> permissionList = checkMorePermissions(activity, permissions);
-        if (permissionList.size() == 0) {  // 用户已授予权限
-            callBack.onHasPermission();
-        } else {
-            boolean isFirst = true;
-            for (int i = 0; i < permissionList.size(); i++) {
-                String permission = permissionList.get(i);
-                if (judgePermission(activity, permission)) {
-                    isFirst = false;
-                    break;
-                }
-            }
-            String[] unauthorizedMorePermissions = (String[]) permissionList.toArray(new String[permissionList.size()]);
-            if (isFirst)// 用户之前已拒绝过权限申请
-                callBack.onUserHasAlreadyTurnedDownAndDontAsk(unauthorizedMorePermissions);
-            else       // 用户之前已拒绝并勾选了不在询问、用户第一次申请权限。
-                callBack.onUserHasAlreadyTurnedDown(unauthorizedMorePermissions);
-
-        }
-    }
 
     /**
      * 请求权限
@@ -102,7 +102,14 @@ public class PermissionUtils {
     }
 
     /**
-     * 请求多个权限(推荐)
+     * 请求权限(推荐)
+     */
+    public static void requestPermission(Activity activity, String[] permission, int requestCode) {
+        ActivityCompat.requestPermissions(activity, permission, requestCode);
+    }
+
+    /**
+     * 请求多个权限
      */
     public static void requestMorePermissions(Activity activity, List permissionList, int requestCode) {
         String[] permissions = (String[]) permissionList.toArray(new String[permissionList.size()]);
@@ -149,7 +156,6 @@ public class PermissionUtils {
     }
 
 
-
     /**
      * 检测并申请权限
      */
@@ -162,7 +168,7 @@ public class PermissionUtils {
     }
 
     /**
-     * 检测并申请多个权限(推荐)
+     * 检测并申请多个权限
      */
     public static void checkAndRequestMorePermissions(Activity activity, String[] permissions, int requestCode, PermissionRequestSuccessCallBack callBack) {
         List<String> permissionList = checkMorePermissions(activity, permissions);
@@ -173,34 +179,9 @@ public class PermissionUtils {
         }
     }
 
-    /**
-     * 判断权限是否申请成功
-     */
-    public static boolean isPermissionRequestSuccess(int[] grantResults) {
-        if (grantResults.length > 0
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-            return true;
-        else
-            return false;
-    }
 
     /**
-     * 用户申请权限返回
-     */
-    public static void onRequestPermissionResult(Activity activity, String permission, int[] grantResults, PermissionCheckCallBack callback) {
-        if (PermissionUtils.isPermissionRequestSuccess(grantResults)) {
-            callback.onHasPermission();
-        } else {
-            if (PermissionUtils.judgePermission(activity, permission)) {
-                callback.onUserHasAlreadyTurnedDown(permission);
-            } else {
-                callback.onUserHasAlreadyTurnedDownAndDontAsk(permission);
-            }
-        }
-    }
-
-    /**
-     * 用户申请多个权限返回
+     * 用户申请多个权限返回(推荐)
      */
     public static void onRequestMorePermissionsResult(Activity activity, String[] permissions, PermissionCheckCallBack callback) {
         boolean isBannedPermission = false;
@@ -255,6 +236,7 @@ public class PermissionUtils {
          * 用户已授予权限
          */
         void onHasPermission();
+
 
         /**
          * 用户已拒绝过权限
