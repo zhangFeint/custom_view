@@ -2,32 +2,28 @@ package com.library.depending.view;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.CountDownTimer;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.library.depending.R;
 import com.library.depending.baseview.BaseActivity;
+import com.library.depending.weight.CustomShapTextView;
 import com.library.depending.weight.IndexChangeView;
-import com.lljjcoder.style.citypickerview.CityPickerView;
 
 
 public class GuideActivity extends BaseActivity {
     private ViewPager viewpager;
     private IndexChangeView indexChangeView;
-    private TextView tvTime;
+    private CustomShapTextView tvTime;
 
     private CountDownTimer countDownTimer;
     private boolean isScrolled;

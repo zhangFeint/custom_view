@@ -15,9 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
-import com.library.depending.customview.ActionSheetDialog;
 import com.library.depending.customview.AlertDialog;
-import com.library.depending.customview.LoadingDialog;
 import com.library.depending.utils.JsonUtils;
 import com.library.depending.utils.RequestCode;
 import com.library.depending.view.CameraUtils;
@@ -179,7 +177,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      * 展示Dialog
      */
     public void showDialog() {
-        //              final String message =  "杨幂，1986年9月12日出生于北京市，中国内地影视女演员、流行乐歌手、影视制片人。2005年，杨幂进入北京电影学院表演系本科班就读。2006年，杨幂因出演金庸武侠剧《神雕侠侣》而崭露头角。2008年，杨幂凭借古装剧《王昭君》获得了第24届中国电视金鹰奖观众喜爱的电视剧女演员奖提名。2009年，杨幂在“80后新生代娱乐大明星”评选活动中与其她三位女演员共同被评为“四小花旦”。";
+//              final String message =  "杨幂，1986年9月12日出生于北京市，中国内地影视女演员、流行乐歌手、影视制片人。2005年，杨幂进入北京电影学院表演系本科班就读。2006年，杨幂因出演金庸武侠剧《神雕侠侣》而崭露头角。2008年，杨幂凭借古装剧《王昭君》获得了第24届中国电视金鹰奖观众喜爱的电视剧女演员奖提名。2009年，杨幂在“80后新生代娱乐大明星”评选活动中与其她三位女演员共同被评为“四小花旦”。";
 //                DialogUtils.getInstance().displayDialog(this, new DialogUtils.OnDialogListener() {
 //                    @Override
 //                    public void onBuilder(AlertDialog.Builder builder) {
