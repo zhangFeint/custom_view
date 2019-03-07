@@ -119,16 +119,4 @@ public class MyActivityManager {
         activityStack.clear();
     }
 
-    /**
-     * 退出应用程序
-     */
-    public void AppExit(Context context) {
-        try {
-            finishAllActivity();
-            ActivityManager activityMgr = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-            activityMgr.restartPackage(context.getPackageName());
-            System.exit(0);
-        } catch (Exception e) {
-        }
-    }
 }
