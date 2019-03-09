@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.customview.AlertDialog;
+import com.library.depending.utils.BGAPhotoPickerUtils;
 import com.library.depending.utils.JsonUtils;
 import com.library.depending.utils.RequestCode;
 import com.library.depending.view.CameraUtils;
@@ -28,9 +29,16 @@ import com.library.depending.webview.WebActivity;
 import java.io.File;
 import java.util.ArrayList;
 
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
+import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
+import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button button1, button2, button3, button4, button5, button6, button7;
     private ImageView ivImage;
+    private BGASortableNinePhotoLayout mPhotosSnpl;
+    private int requestCode;
+    private int resultCode;
+    private Intent data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +59,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button6 = findViewById(R.id.button6);
         button7 = findViewById(R.id.button7);
         ivImage = findViewById(R.id.iv_image);
+        mPhotosSnpl = findViewById(R.id.npl_item_moment_photos);
+        BGAPhotoPickerUtils.getInstance().init(this, mPhotosSnpl, 6, BGAPhotoPickerUtils.RC_CHOOSE_PHOTO);
         initData();
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK && requestCode == BGAPhotoPickerUtils.RC_CHOOSE_PHOTO) {
+//          mPhotosSnpl.setData(BGAPhotoPickerActivity.getSelectedPhotos(data));//设置单选数据
+            mPhotosSnpl.addMoreData(BGAPhotoPickerActivity.getSelectedPhotos(data));//设置多选数据
+//            mPicList = BGAPhotoPickerActivity.getSelectedPhotos(data);
+        } else if (requestCode == BGAPhotoPickerUtils.RC_PHOTO_PREVIEW) {
+//            mPicList = BGAPhotoPickerActivity.getSelectedPhotos(data);
+            mPhotosSnpl.setData(BGAPhotoPickerPreviewActivity.getSelectedPhotos(data));//拍照也是单选
+        }
     }
 
     @Override
@@ -159,13 +181,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != RESULT_OK) {//操作失败
-            return;
-        }
-//        resetCameraResult(CameraUtils.getInstance().getResult(this, requestCode, data).get(0));
-    }
 
     private void resetCameraResult(Uri url) {
         ivImage.setImageURI(url);
