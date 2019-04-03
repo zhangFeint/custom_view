@@ -15,22 +15,28 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
 import java.util.ArrayList;
-
+/**
+ * @author：zhangerpeng
+ * 版本：
+ * 日期：2019\4\3 0003 15:45
+ * 描述：
+ *   公告 上下滚动
+ */
 public class VerticalTextview extends TextSwitcher implements ViewSwitcher.ViewFactory {
 
     private static final int FLAG_START_AUTO_SCROLL = 0;
     private static final int FLAG_STOP_AUTO_SCROLL = 1;
 
-    private float mTextSize = 14 ;
+    private float mTextSize = 14;
     private int mPadding = 5;
     private int textColor = Color.BLACK;
 
     /**
-     * @param textSize 字号
-     * @param padding 内边距
+     * @param textSize  字号
+     * @param padding   内边距
      * @param textColor 字体颜色
      */
-    public void setText(float textSize,int padding,int textColor) {
+    public void setText(float textSize, int padding, int textColor) {
         mTextSize = textSize;
         mPadding = padding;
         this.textColor = textColor;
@@ -67,10 +73,11 @@ public class VerticalTextview extends TextSwitcher implements ViewSwitcher.ViewF
 
     /**
      * 间隔时间
+     *
      * @param time
      */
-    public void setTextStillTime(final long time){
-        handler =new Handler() {
+    public void setTextStillTime(final long time) {
+        handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
@@ -79,7 +86,7 @@ public class VerticalTextview extends TextSwitcher implements ViewSwitcher.ViewF
                             currentId++;
                             setText(textList.get(currentId % textList.size()));
                         }
-                        handler.sendEmptyMessageDelayed(FLAG_START_AUTO_SCROLL,time);
+                        handler.sendEmptyMessageDelayed(FLAG_START_AUTO_SCROLL, time);
                         break;
                     case FLAG_STOP_AUTO_SCROLL:
                         handler.removeMessages(FLAG_START_AUTO_SCROLL);
@@ -88,8 +95,10 @@ public class VerticalTextview extends TextSwitcher implements ViewSwitcher.ViewF
             }
         };
     }
+
     /**
      * 设置数据源
+     *
      * @param titles
      */
     public void setTextList(ArrayList<String> titles) {
@@ -135,6 +144,7 @@ public class VerticalTextview extends TextSwitcher implements ViewSwitcher.ViewF
 
     /**
      * 设置点击事件监听
+     *
      * @param itemClickListener
      */
     public void setOnItemClickListener(OnItemClickListener itemClickListener) {
@@ -147,9 +157,45 @@ public class VerticalTextview extends TextSwitcher implements ViewSwitcher.ViewF
     public interface OnItemClickListener {
         /**
          * 点击回调
+         *
          * @param position 当前点击ID
          */
         void onItemClick(int position);
     }
-
 }
+/*
+}
+    private void init() {
+        mTextview = (VerticalTextview) findViewById(R.id.textview);
+        titleList=new ArrayList<>();
+        titleList.add("公告1");
+        titleList.add("公告2");
+        titleList.add("公告3");
+        titleList.add("公告4");
+        titleList.add("公告5");
+        titleList.add("公告6");
+        titleList.add("公告7");
+        titleList.add("公告8");
+        mTextview.setTextList(titleList);
+        mTextview.setText(14, 5, Color.RED);//设置属性
+        mTextview.setTextStillTime(3000);//设置停留时长间隔
+        mTextview.setAnimTime(300);//设置进入和退出的时间间隔
+        mTextview.setOnItemClickListener(new VerticalTextview.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Toast.makeText(MainActivity.this, "点击了 : " + titleList.get(position), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mTextview.startAutoScroll();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mTextview.stopAutoScroll();
+    }*/
