@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -20,6 +22,7 @@ import com.library.depending.utils.RequestCode;
 import com.library.depending.view.CameraUtils;
 import com.library.depending.view.GuideActivity;
 import com.library.depending.view.PlusImageActivity;
+import com.library.depending.viewutils.FragmentUtils;
 import com.library.depending.webview.PermissionUtils;
 import com.library.depending.webview.WebActivity;
 
@@ -37,6 +40,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int requestCode;
     private int resultCode;
     private Intent data;
+    private Fragment fragment1,fragment2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +63,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ivImage = findViewById(R.id.iv_image);
         mPhotosSnpl = findViewById(R.id.npl_item_moment_photos);
         BGAPhotoPickerUtils.getInstance().init(this, mPhotosSnpl, 6, BGAPhotoPickerUtils.RC_CHOOSE_PHOTO);
+       fragment1= new BlankFragment();
+        fragment2= new BlankFragment2();
+        FragmentUtils.getInstance().addFragment(getSupportFragmentManager(),R.id.frameLayout,fragment1);
+        FragmentUtils.getInstance().addFragment(getSupportFragmentManager(),R.id.frameLayout,fragment2);
         initData();
     }
     @Override
@@ -163,16 +171,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                        Toast.makeText(MainActivity.this, "province:" + province.getId() + "city:" + city.getId() + "district:" + district.getId(), Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-                PickerUtils.getInstance(). showTimePicker(this, new boolean[]{true, true, true, false, false, false}, new PickerUtils.OnTimeListener() {
-                    @Override
-                    public void onTimeSelect(Date date, View v) {
-                        Toast.makeText(MainActivity.this, PickerUtils.getInstance().getDate(date,"yyyy-mm-dd") , Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                FragmentUtils.getInstance().showFragment(getSupportFragmentManager(),fragment1);
                 break;
             case R.id.button6:
-                showDialog();
+                FragmentUtils.getInstance().showFragment(getSupportFragmentManager(),fragment2);
+//                showDialog();
                 break;
             case R.id.button7:
                 String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";

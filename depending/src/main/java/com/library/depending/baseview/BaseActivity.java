@@ -42,8 +42,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
      */
     private NetBroadcastReceiver netBroadcastReceiver;
     private int netMobile;// 网络类型
-    private FragmentManager manager;
-    private FragmentTransaction transaction;
+
 
 
     @Override
@@ -117,73 +116,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
         return false;
     }
 
-
-    /**
-     * 显示当前 Fragment
-     * 1、 实例化  Fragment 显示  processView
-     * 2、 移除实例 Fragment    removeFragment  不保存状态
-     *
-     * @param var1     FrameLayout ID
-     * @param fragment new Fragment();
-     */
-    public void processView(@IdRes int var1, Fragment fragment) {
-        manager = getSupportFragmentManager();
-        transaction = manager.beginTransaction();
-        removeFragment(transaction);
-        transaction.replace(var1, fragment);
-        transaction.commit();
-    }
-
-    /**
-     * 去除（隐藏）所有的Fragment
-     * 与processView
-     */
-    private void removeFragment(FragmentTransaction transaction) {
-        List<Fragment> frmlist = manager.getFragments();
-        for (int i = 0; i < frmlist.size(); i++) {
-            transaction.remove(frmlist.get(i));
-        }
-    }
-
-
-    /**
-     * 添加fragment   用 showFragment显示
-     * 1。先添加 addFragment
-     * 2、显示某一个  showFragment  其他隐藏掉   保存状态
-     *
-     * @param var1     FrameLayout ID
-     * @param fragment new Fragment();
-     */
-    public void addFragment(@IdRes int var1, Fragment fragment) {
-        manager = getSupportFragmentManager();
-        transaction = manager.beginTransaction();
-        transaction.add(var1, fragment);
-        transaction.hide(fragment);
-        transaction.commit();
-    }
-
-    /**
-     * 显示fragment
-     *
-     * @param fragment
-     */
-    public void showFragment(Fragment fragment) {
-        manager = getSupportFragmentManager();
-        transaction = manager.beginTransaction();
-        hideFragment(transaction);
-        transaction.show(fragment);
-        transaction.commit();
-    }
-
-    /*
-     * 去除（隐藏）所有的Fragment
-     * */
-    private void hideFragment(FragmentTransaction transaction) {
-        List<Fragment> frmlist = manager.getFragments();
-        for (int i = 0; i < frmlist.size(); i++) {
-            transaction.hide(frmlist.get(i));
-        }
-    }
 
     /**
      * 初始化控件
