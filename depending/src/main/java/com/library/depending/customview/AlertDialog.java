@@ -15,7 +15,13 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.library.depending.R;
-
+/**
+ * @author：zhangerpeng
+ * 版本：
+ * 日期：2019/4/7 20:27
+ * 描述：
+ *  仿IOS 弹出框
+ */
 public class AlertDialog {
 	private Context context;
 	private Dialog dialog;

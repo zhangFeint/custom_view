@@ -22,7 +22,7 @@
         android:layout_centerVertical="true"
         android:gravity="center"
         android:textColor="@color/translucent_black_20"
-        android:textSize="@dimen/fontSize16"
+        android:textSize="@dimen/fontSizeTible"
     tools:text="@string/string" />
 
     <TextView

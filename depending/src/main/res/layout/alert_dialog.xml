@@ -5,7 +5,7 @@
     android:layout_centerInParent="true"
     android:layout_margin="20dp"
     android:background="#ffffff"
-    android:padding="@dimen/distance_10"
+    android:padding="10dp"
     android:gravity="center_horizontal"
     android:orientation="vertical">
     <!--自定义的仿微信支付密码控件-->

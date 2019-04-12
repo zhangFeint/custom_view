@@ -14,7 +14,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="@dimen/distance_10">
+            android:paddingLeft="10dp">
 
             <ImageView
                 android:id="@+id/back_iv"

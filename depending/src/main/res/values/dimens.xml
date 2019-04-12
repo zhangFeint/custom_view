@@ -2,14 +2,5 @@
     <!--字体大小-->
     <dimen name="fontSizeTible">16sp</dimen>
     <dimen name="fontSizeText">14sp</dimen>
-    <dimen name="fontSize12">12sp</dimen>
-    <!--边距-->
-    <dimen name="distance_1">1dp</dimen>
-    <dimen name="distance_3">3dp</dimen>
-    <dimen name="distance_6">6dp</dimen>
-    <dimen name="distance_8">8dp</dimen>
-    <dimen name="distance_10">10dp</dimen>
-    <dimen name="distance_15">15dp</dimen>
-    <dimen name="distance_16">16dp</dimen>
-    <dimen name="distance_20">20dp</dimen>
+
 </resources>

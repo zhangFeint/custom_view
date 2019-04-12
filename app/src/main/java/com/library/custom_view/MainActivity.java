@@ -2,12 +2,9 @@ package com.library.custom_view;
 
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,9 +15,9 @@ import com.library.depending.baseview.BaseActivity;
 import com.library.depending.customview.AlertDialog;
 import com.library.depending.utils.BGAPhotoPickerUtils;
 import com.library.depending.utils.JsonUtils;
+import com.library.depending.utils.PickerUtils;
 import com.library.depending.utils.RequestCode;
 import com.library.depending.view.CameraUtils;
-import com.library.depending.view.CityPicker;
 import com.library.depending.view.GuideActivity;
 import com.library.depending.view.PlusImageActivity;
 import com.library.depending.webview.PermissionUtils;
@@ -28,6 +25,7 @@ import com.library.depending.webview.WebActivity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
@@ -105,7 +103,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
-        CityPicker.getInstance().init(this);
+
     }
 
     @Override
@@ -159,12 +157,19 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 GuideActivity.show(this, 8000, new int[]{R.mipmap.splash1, R.mipmap.splash2, R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
                 break;
             case R.id.button5:
-                CityPicker.getInstance().show(new CityPicker.OnCityClickListener() {
+//                PickerUtils.getInstance().showCityPicker(MainActivity.this, "河南省", "郑州市", "金水区", new PickerUtils.OnCityClickListener() {
+//                    @Override
+//                    public void onSelected(Province province, City city, District district) {
+//                        Toast.makeText(MainActivity.this, "province:" + province.getId() + "city:" + city.getId() + "district:" + district.getId(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+                PickerUtils.getInstance(). showTimePicker(this, new boolean[]{true, true, true, false, false, false}, new PickerUtils.OnTimeListener() {
                     @Override
-                    public void onSelected(String province, String city, String district) {
-                        Toast.makeText(MainActivity.this, "province:" + province + "city:" + city + "district:" + district, Toast.LENGTH_SHORT).show();
+                    public void onTimeSelect(Date date, View v) {
+                        Toast.makeText(MainActivity.this, PickerUtils.getInstance().getDate(date,"yyyy-mm-dd") , Toast.LENGTH_SHORT).show();
                     }
                 });
+
                 break;
             case R.id.button6:
                 showDialog();
@@ -179,6 +184,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
     }
+
 
 
 

@@ -20,9 +20,12 @@ import com.library.depending.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
 /**
- * 仿IOS相机，相册dialog
+ * @author：zhangerpeng
+ * 版本：
+ * 日期：2019/4/7 20:27
+ * 描述：
+ *    仿IOS相机，相册dialog
  */
 public class ActionSheetDialog {
     private Context context;
