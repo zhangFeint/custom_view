@@ -16,8 +16,11 @@ import android.widget.Toast;
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.customview.AlertDialog;
 import com.library.depending.utils.BGAPhotoPickerUtils;
+import com.library.depending.utils.City;
+import com.library.depending.utils.District;
 import com.library.depending.utils.JsonUtils;
 import com.library.depending.utils.PickerUtils;
+import com.library.depending.utils.Province;
 import com.library.depending.utils.RequestCode;
 import com.library.depending.view.CameraUtils;
 import com.library.depending.view.GuideActivity;
@@ -40,7 +43,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private int requestCode;
     private int resultCode;
     private Intent data;
-    private Fragment fragment1,fragment2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +65,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         ivImage = findViewById(R.id.iv_image);
         mPhotosSnpl = findViewById(R.id.npl_item_moment_photos);
         BGAPhotoPickerUtils.getInstance().init(this, mPhotosSnpl, 6, BGAPhotoPickerUtils.RC_CHOOSE_PHOTO);
-       fragment1= new BlankFragment();
-        fragment2= new BlankFragment2();
-        FragmentUtils.getInstance().addFragment(getSupportFragmentManager(),R.id.frameLayout,fragment1);
-        FragmentUtils.getInstance().addFragment(getSupportFragmentManager(),R.id.frameLayout,fragment2);
         initData();
     }
     @Override
@@ -165,17 +163,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 GuideActivity.show(this, 8000, new int[]{R.mipmap.splash1, R.mipmap.splash2, R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
                 break;
             case R.id.button5:
-//                PickerUtils.getInstance().showCityPicker(MainActivity.this, "河南省", "郑州市", "金水区", new PickerUtils.OnCityClickListener() {
-//                    @Override
-//                    public void onSelected(Province province, City city, District district) {
-//                        Toast.makeText(MainActivity.this, "province:" + province.getId() + "city:" + city.getId() + "district:" + district.getId(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-                FragmentUtils.getInstance().showFragment(getSupportFragmentManager(),fragment1);
+                PickerUtils.getInstance().showCityPicker(MainActivity.this, "河南省", "郑州市", "金水区", new PickerUtils.OnCityClickListener() {
+                @Override
+                public void onSelected(Province province, City city, District district) {
+                    Toast.makeText(MainActivity.this, "province:" + province.getId() + "city:" + city.getId() + "district:" + district.getId(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
                 break;
             case R.id.button6:
-                FragmentUtils.getInstance().showFragment(getSupportFragmentManager(),fragment2);
-//                showDialog();
+             showDialog();
                 break;
             case R.id.button7:
                 String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";
