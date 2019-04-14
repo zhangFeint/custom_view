@@ -128,7 +128,6 @@ public class LoadingDialog extends Dialog {
      * @param iv_loading
      */
     private void setXml2FrameAnim2(@DrawableRes int id, ImageView iv_loading) {
-
         // 通过逐帧动画的资源文件获得AnimationDrawable示例
         animationDrawable = (AnimationDrawable) context.getResources().getDrawable(id);
         iv_loading.setBackground(animationDrawable);

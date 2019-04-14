@@ -220,19 +220,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                });
 //                        LoadingDialog dialog = new LoadingDialog(this, "加载中。。。");
 //                        dialog.show();
-        new AlertDialog(MainActivity.this).builder().setTitle("退出当前账号")
-                .setMsg("再连续登陆15天，就可变身为QQ达人。退出QQ可能会使你现有记录归零，确定退出？")
-                .setPositiveButton("确认退出", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
 
-                    }
-                }).setNegativeButton("取消", new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        }).show();
 
     }
 
