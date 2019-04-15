@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.library.depending.customview.IOSAlertDialog;
+import com.library.depending.customview.LoadingDialog;
+
 
 //*******************************************************相机、相册Dialog***********************************************************
 
@@ -29,7 +32,8 @@ public class DialogUtils {
         return dialogUtils;
     }
     //----------------------------------------------------------Dialog控件----------------------------------------------------------------------
-
+//    LoadingDialog dialog = new LoadingDialog(this, "加载中。。。");
+//                        dialog.show();
 
     /**
      * 默认的弹出框
@@ -43,9 +47,28 @@ public class DialogUtils {
         builder.create().show();
     }
 
-    public interface OnDialogListener {
-        void onBuilder(AlertDialog.Builder builder);
+    /**
+     * 仿ios 弹框
+     *
+     * @param activity
+     */
+    public void displayIOSDialog(Activity activity) {
+        new IOSAlertDialog(activity).builder().setTitle("退出当前账号")
+                .setMsg("再连续登陆15天，就可变身为QQ达人。退出QQ可能会使你现有记录归零，确定退出？")
+                .setPositiveButton("确认", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                }).setNegativeButton("取消", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        }).show();
     }
+
+
     /**
      * 弹出对话框
      *
@@ -62,7 +85,9 @@ public class DialogUtils {
         });
     }
 
-
+    public interface OnDialogListener {
+        void onBuilder(AlertDialog.Builder builder);
+    }
 
     /**
      * 自定义的Dialog View 页面
@@ -71,9 +96,9 @@ public class DialogUtils {
      * @param resource                    xml布局
      * @param onCustomAlertDialogListener 接口
      */
-    public void displayAlertDialog(Context context, int resource,OnCustomAlertDialogListener onCustomAlertDialogListener) {
+    public void displayAlertDialog(Context context, int resource, OnCustomAlertDialogListener onCustomAlertDialogListener) {
         final View view = LayoutInflater.from(context).inflate(resource, null); //    通过LayoutInflater来加载一个xml的布局文件作为一个View对象
-        onCustomAlertDialogListener.OnHandleEvent(view,new AlertDialog.Builder(context));
+        onCustomAlertDialogListener.OnHandleEvent(view, new AlertDialog.Builder(context));
     }
 
     //---------------------------------------------------------- 全屏对话框----------------------------------------------------------------------
@@ -105,17 +130,18 @@ public class DialogUtils {
         dialog.setContentView(view);
         onCustomDialogListener.OnHandleEvent(view, dialog);
     }
+
     /**
      * 全屏对话框
      *
      * @param context
      * @param resource               xml布局
      * @param themeResId             样式 Style
-     * @param gravity               位置 Gravity.FILL
-     * @param WindowHeight         窗口高度 WindowManager.LayoutParams.FILL_PARENT
+     * @param gravity                位置 Gravity.FILL
+     * @param WindowHeight           窗口高度 WindowManager.LayoutParams.FILL_PARENT
      * @param onCustomDialogListener
      */
-    public void displayFillDialog(Context context, int resource, int themeResId, int gravity,int WindowHeight, OnCustomDialogListener onCustomDialogListener) {
+    public void displayFillDialog(Context context, int resource, int themeResId, int gravity, int WindowHeight, OnCustomDialogListener onCustomDialogListener) {
         View view = LayoutInflater.from(context).inflate(resource, null);  //    通过LayoutInflater来加载一个xml的布局文件作为一个View对象
         Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -131,7 +157,6 @@ public class DialogUtils {
         window.setAttributes(lp); //将设置好的属性set回去
         onCustomDialogListener.OnHandleEvent(view, dialog);
     }
-
 
 
     //----------------------------------------------------------自适应对话框----------------------------------------------------------------------

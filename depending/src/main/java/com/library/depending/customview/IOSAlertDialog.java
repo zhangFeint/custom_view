@@ -5,16 +5,30 @@ import android.content.Context;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.library.depending.R;
+
+import android.app.Dialog;
+        import android.content.Context;
+        import android.view.Display;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.View.OnClickListener;
+        import android.view.WindowManager;
+        import android.widget.Button;
+        import android.widget.FrameLayout;
+        import android.widget.ImageView;
+        import android.widget.LinearLayout;
+        import android.widget.LinearLayout.LayoutParams;
+        import android.widget.TextView;
+
+        import com.library.depending.R;
 
 /**
  * @author：zhangerpeng 版本：
@@ -22,7 +36,7 @@ import com.library.depending.R;
  * 描述：
  * 仿IOS 弹出框
  */
-public class AlertDialog {
+public class IOSAlertDialog {
     private Context context;
     private Dialog dialog;
     private LinearLayout lLayout_bg;
@@ -36,7 +50,7 @@ public class AlertDialog {
     private boolean showMsg = false;
     private boolean showPosBtn = false;
     private boolean showNegBtn = false;
-//        new AlertDialog(MainActivity.this).builder().setTitle("退出当前账号")
+    //        new IOSAlertDialog(MainActivity.this).builder().setTitle("退出当前账号")
 //                .setMsg("再连续登陆15天，就可变身为QQ达人。退出QQ可能会使你现有记录归零，确定退出？")
 //                .setPositiveButton("确认退出", new View.OnClickListener() {
 //        @Override
@@ -49,14 +63,14 @@ public class AlertDialog {
 //
 //        }
 //    }).show();
-    public AlertDialog(Context context) {
+    public IOSAlertDialog(Context context) {
         this.context = context;
         WindowManager windowManager = (WindowManager) context
                 .getSystemService(Context.WINDOW_SERVICE);
         display = windowManager.getDefaultDisplay();
     }
 
-    public AlertDialog builder() {
+    public IOSAlertDialog builder() {
         // 获取Dialog布局
         View view = LayoutInflater.from(context).inflate(
                 R.layout.view_alertdialog, null);
@@ -80,12 +94,12 @@ public class AlertDialog {
 
         // 调整dialog背景大小
         lLayout_bg.setLayoutParams(new FrameLayout.LayoutParams((int) (display
-                .getWidth() * 0.85), LayoutParams.WRAP_CONTENT));
+                .getWidth() * 0.85), LinearLayout.LayoutParams.WRAP_CONTENT));
 
         return this;
     }
 
-    public AlertDialog setTitle(String title) {
+    public IOSAlertDialog setTitle(String title) {
         showTitle = true;
         if ("".equals(title)) {
             txt_title.setText("标题");
@@ -95,7 +109,7 @@ public class AlertDialog {
         return this;
     }
 
-    public AlertDialog setMsg(String msg) {
+    public IOSAlertDialog setMsg(String msg) {
         showMsg = true;
         if ("".equals(msg)) {
             txt_msg.setText("内容");
@@ -105,20 +119,20 @@ public class AlertDialog {
         return this;
     }
 
-    public AlertDialog setCancelable(boolean cancel) {
+    public IOSAlertDialog setCancelable(boolean cancel) {
         dialog.setCancelable(cancel);
         return this;
     }
 
-    public AlertDialog setPositiveButton(String text,
-                                         final OnClickListener listener) {
+    public IOSAlertDialog setPositiveButton(String text,
+                                         final View.OnClickListener listener) {
         showPosBtn = true;
         if ("".equals(text)) {
             btn_pos.setText("确定");
         } else {
             btn_pos.setText(text);
         }
-        btn_pos.setOnClickListener(new OnClickListener() {
+        btn_pos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClick(v);
@@ -128,15 +142,15 @@ public class AlertDialog {
         return this;
     }
 
-    public AlertDialog setNegativeButton(String text,
-                                         final OnClickListener listener) {
+    public IOSAlertDialog setNegativeButton(String text,
+                                         final View.OnClickListener listener) {
         showNegBtn = true;
         if ("".equals(text)) {
             btn_neg.setText("取消");
         } else {
             btn_neg.setText(text);
         }
-        btn_neg.setOnClickListener(new OnClickListener() {
+        btn_neg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onClick(v);
@@ -164,7 +178,7 @@ public class AlertDialog {
             btn_pos.setText("确定");
             btn_pos.setVisibility(View.VISIBLE);
             btn_pos.setBackgroundResource(R.drawable.alertdialog_single_selector);
-            btn_pos.setOnClickListener(new OnClickListener() {
+            btn_pos.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dialog.dismiss();

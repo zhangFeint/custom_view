@@ -4,17 +4,13 @@ package com.library.custom_view;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
-import com.library.depending.customview.AlertDialog;
 import com.library.depending.utils.BGAPhotoPickerUtils;
 import com.library.depending.utils.City;
 import com.library.depending.utils.District;
@@ -25,13 +21,10 @@ import com.library.depending.utils.RequestCode;
 import com.library.depending.view.CameraUtils;
 import com.library.depending.view.GuideActivity;
 import com.library.depending.view.PlusImageActivity;
-import com.library.depending.viewutils.FragmentUtils;
-import com.library.depending.webview.PermissionUtils;
 import com.library.depending.webview.WebActivity;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
 import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
@@ -40,9 +33,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button button1, button2, button3, button4, button5, button6, button7;
     private ImageView ivImage;
     private BGASortableNinePhotoLayout mPhotosSnpl;
-    private int requestCode;
-    private int resultCode;
-    private Intent data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,50 +78,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initData() {
-        PermissionUtils.checkMorePermissions(this, PermissionUtils.CAMERA_PERMISSIONS, new PermissionUtils.PermissionCheckCallBack() {
-            @Override
-            public void onHasPermission() {
-                Log.d("PermissionUtils", "onHasPermission: 权限已获取");
-                Toast.makeText(MainActivity.this, "权限已获取", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onUserHasAlreadyTurnedDown(String... permission) {
-                Log.d("PermissionUtils", "onUserHasAlreadyTurnedDown: 拒绝");
-                PermissionUtils.requestPermission(MainActivity.this, permission, 1111);
-            }
-
-            @Override
-            public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
-                Log.d("PermissionUtils", "onUserHasAlreadyTurnedDownAndDontAsk: 已勾选不再询问");
-                PermissionUtils.requestPermission(MainActivity.this, permission, 1111);
-                Toast.makeText(MainActivity.this, "" + permission, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionUtils.onRequestMorePermissionsResult(MainActivity.this, permissions, new PermissionUtils.PermissionCheckCallBack() {
-            @Override
-            public void onHasPermission() {
-                Log.d("PermissionUtils", "onHasPermission: 权限已获取回调");
-            }
-
-            @Override
-            public void onUserHasAlreadyTurnedDown(String... permission) {
-                Log.d("PermissionUtils", "onUserHasAlreadyTurnedDown: 拒绝回调");
-            }
-
-            @Override
-            public void onUserHasAlreadyTurnedDownAndDontAsk(String... permission) {
-                Log.d("PermissionUtils", "onUserHasAlreadyTurnedDownAndDontAsk: 已勾选不再询问回调");
-            }
-        });
-    }
 
     @Override
     public void initListener() {
