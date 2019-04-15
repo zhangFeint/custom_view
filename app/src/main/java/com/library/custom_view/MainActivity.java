@@ -1,7 +1,6 @@
 package com.library.custom_view;
 
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +11,10 @@ import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.utils.ActivityUtils;
-import com.library.depending.utils.BGAPhotoPickerUtils;
-import com.library.depending.utils.City;
-import com.library.depending.utils.District;
-import com.library.depending.utils.JsonUtils;
+import com.library.depending.bean.City;
+import com.library.depending.bean.District;
 import com.library.depending.utils.PickerUtils;
-import com.library.depending.utils.Province;
+import com.library.depending.bean.Province;
 import com.library.depending.utils.RequestCode;
 import com.library.depending.view.CameraUtils;
 import com.library.depending.view.GuideActivity;
@@ -110,12 +107,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
              showDialog();
                 break;
             case R.id.button7:
-                String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";
-                String message2 = "[{\"key\":\"value\"},{\"key\":\"value\"},{\"key\":\"value\"}]";
-                String message3 = "key:value";
-                System.out.println(JsonUtils.getInstance().estimate(message1));
-                System.out.println(JsonUtils.getInstance().estimate(message2));
-                System.out.println(JsonUtils.getInstance().estimate(message3));
+
                 break;
         }
     }

@@ -97,6 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
     @Override
     public void onChangeListener(int netMobile) {
         this.netMobile = netMobile;
+        Log.d(TAG, "onChangeListener: "+isNetConnect());
         isNetConnect();
     }
 
@@ -156,27 +157,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
      * 初始适配器
      */
     public void initAdapter() {
-    }
-
-    /**
-     * 显示自定义错误提示页面，用一个View覆盖在WebView
-     */
-    public void showErrorPage(ViewGroup viewGroup, View mErrorView) {
-        viewGroup.removeAllViews(); //移除加载网页错误时，默认的提示信息
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        viewGroup.addView(mErrorView, 0, layoutParams); //添加自定义的错误提示的View
-    }
-
-    /**
-     * 设置全屏  true ：全屏 false ：取消全屏
-     * 在    setContentView(R.layout.activity_main);之前
-     */
-    public void setFullScreen(boolean b) {
-        if (b) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        } else {
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); // 取消全屏
-        }
     }
 
     /**

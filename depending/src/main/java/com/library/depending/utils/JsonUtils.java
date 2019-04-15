@@ -1,43 +1,30 @@
 package com.library.depending.utils;
 
 
+import com.google.gson.Gson;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.util.Iterator;
-
+//    String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";
+//    String message2 = "[{\"key\":\"value\"},{\"key\":\"value\"},{\"key\":\"value\"}]";
+//    String message3 = "key:value";
+//                System.out.println(JsonUtils.getInstance().estimate(message1));
+//                System.out.println(JsonUtils.getInstance().estimate(message2));
+//                System.out.println(JsonUtils.getInstance().estimate(message3));
+/**
+ * @author：zhangerpeng
+ * 版本：
+ * 日期：2019/4/15 22:54
+ * 描述：
+ *
+ */
 public class JsonUtils {
     private static JsonUtils jsonUtils;
-    //    String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";
-//    estimate(message1);
-//    String message2 = "[{\"key\":\"value\"},{\"key\":\"value\"},{\"key\":\"value\"}]";
-    public static String STR = "{\n" +
-            "    \"name\": \"BeJson\",\n" +
-            "    \"url\": \"http://www.bejson.com\",\n" +
-            "    \"page\": 88,\n" +
-            "    \"isNonProfit\": true,\n" +
-            "    \"address\": {\n" +
-            "        \"street\": \"科技园路.\",\n" +
-            "        \"city\": \"江苏苏州\",\n" +
-            "        \"country\": \"中国\"\n" +
-            "    },\n" +
-            "    \"links\": [\n" +
-            "        {\n" +
-            "            \"name\": \"Google\",\n" +
-            "            \"url\": \"http://www.google.com\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "            \"name\": \"Baidu\",\n" +
-            "            \"url\": \"http://www.baidu.com\"\n" +
-            "        },\n" +
-            "        {\n" +
-            "            \"name\": \"SoSo\",\n" +
-            "            \"url\": \"http://www.SoSo.com\"\n" +
-            "        }\n" +
-            "    ]\n" +
-            "}";
+
 
     /**
      * 单例模式

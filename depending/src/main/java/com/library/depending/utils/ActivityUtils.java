@@ -5,8 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.Map;
@@ -170,7 +173,14 @@ public class ActivityUtils {
         }
     }
 
-
+    /**
+     * 显示自定义错误提示页面，用一个View覆盖在WebView
+     */
+    public void showErrorPage(ViewGroup viewGroup, View mErrorView) {
+        viewGroup.removeAllViews(); //移除加载网页错误时，默认的提示信息
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        viewGroup.addView(mErrorView, 0, layoutParams); //添加自定义的错误提示的View
+    }
     /**
      * </br><b>title : </b>       显示Toast消息。
      * </br><b>description :</b>显示Toast消息，并保证运行在UI线程中

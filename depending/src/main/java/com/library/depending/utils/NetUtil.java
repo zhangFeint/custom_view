@@ -32,6 +32,8 @@ public class NetUtil {
         return netUtil;
     }
 
+
+
     public int getNetWorkState(Context context) {
         // 得到连接管理器对象  
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);

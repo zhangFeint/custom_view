@@ -1,4 +1,4 @@
-package com.library.depending.utils;
+package com.library.depending.bean;
 
 /**
  * @author：zhangerpeng

@@ -1,19 +1,18 @@
-package com.library.depending.utils;
-
+package com.library.depending.bean;
 /**
  * @author：zhangerpeng
  * 版本：
  * 日期：2019/4/12 22:24
  * 描述：
- *     地址  省
+ *     地址  区
  */
-public class Province {
-  private   String id,name;
+public class District {
+    private   String id,name;
 
-    public Province() {
+    public District() {
     }
 
-    public Province(String id, String name) {
+    public District(String id, String name) {
         this.id = id;
         this.name = name;
     }
