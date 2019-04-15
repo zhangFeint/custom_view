@@ -159,30 +159,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
     }
 
     /**
-     * 设置横屏 true ：横屏 false ：竖屏
-     */
-    protected void setOrientation(boolean b) {
-        if (b) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);// 横屏
-        } else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);//竖屏
-        }
-    }
-
-    /**
-     * 当前 屏幕 true ：横屏 false ：竖屏
-     *
-     * @return
-     */
-    protected boolean getOrientation() {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            return true;
-        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            return false;
-        }
-        return true;
-    }
-    /**
      * 显示自定义错误提示页面，用一个View覆盖在WebView
      */
     public void showErrorPage(ViewGroup viewGroup, View mErrorView) {

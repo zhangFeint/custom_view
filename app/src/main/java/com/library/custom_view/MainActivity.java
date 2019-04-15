@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.library.depending.baseview.BaseActivity;
+import com.library.depending.utils.ActivityUtils;
 import com.library.depending.utils.BGAPhotoPickerUtils;
 import com.library.depending.utils.City;
 import com.library.depending.utils.District;
@@ -26,13 +27,11 @@ import com.library.depending.webview.WebActivity;
 import java.io.File;
 import java.util.ArrayList;
 
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerActivity;
-import cn.bingoogolapple.photopicker.activity.BGAPhotoPickerPreviewActivity;
-import cn.bingoogolapple.photopicker.widget.BGASortableNinePhotoLayout;
+
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private Button button1, button2, button3, button4, button5, button6, button7;
     private ImageView ivImage;
-    private BGASortableNinePhotoLayout mPhotosSnpl;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +39,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         initViews();
         initListener();
-        setOrientation(false);
     }
 
     @Override
@@ -53,21 +51,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button6 = findViewById(R.id.button6);
         button7 = findViewById(R.id.button7);
         ivImage = findViewById(R.id.iv_image);
-        mPhotosSnpl = findViewById(R.id.npl_item_moment_photos);
-        BGAPhotoPickerUtils.getInstance().init(this, mPhotosSnpl, 6, BGAPhotoPickerUtils.RC_CHOOSE_PHOTO);
+
+
         initData();
-    }
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == BGAPhotoPickerUtils.RC_CHOOSE_PHOTO) {
-//          mPhotosSnpl.setData(BGAPhotoPickerActivity.getSelectedPhotos(data));//设置单选数据
-            mPhotosSnpl.addMoreData(BGAPhotoPickerActivity.getSelectedPhotos(data));//设置多选数据
-//            mPicList = BGAPhotoPickerActivity.getSelectedPhotos(data);
-        } else if (requestCode == BGAPhotoPickerUtils.RC_PHOTO_PREVIEW) {
-//            mPicList = BGAPhotoPickerActivity.getSelectedPhotos(data);
-            mPhotosSnpl.setData(BGAPhotoPickerPreviewActivity.getSelectedPhotos(data));//拍照也是单选
-        }
     }
 
     @Override
@@ -105,7 +91,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 WebActivity.show(MainActivity.this, "https://www.baidu.com");
                 break;
             case R.id.button3:
-                CameraUtils.getInstance().showCameraDialog(this);
+//                CameraUtils.getInstance().showCameraDialog(this);
+                ActivityUtils.exitBy2Click(MainActivity.this,2);
                 break;
             case R.id.button4:
                 GuideActivity.show(this, 8000, new int[]{R.mipmap.splash1, R.mipmap.splash2, R.mipmap.splash, R.mipmap.splash1, R.mipmap.splash2}, MainActivity.class);
