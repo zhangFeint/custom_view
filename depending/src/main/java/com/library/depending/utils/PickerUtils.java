@@ -50,6 +50,7 @@ public class PickerUtils {
                 .confirTextColor("#696969")
                 .cancelTextColor("#696969")
                 .province(province)
+                .setCityWheelType(CityConfig.WheelType.PRO_CITY_DIS)//显示类，只显示省份一级，显示省市两级还是显示省市区三级
                 .city(city)
                 .district(district)
                 .provinceCyclic(false)
@@ -64,16 +65,15 @@ public class PickerUtils {
         mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
             @Override
             public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
-                listener.onSelected(new Province(province.getId(),province.getName()),new City(city.getId(),city.getName()),new  District(district.getId(),district.getName()));
+                listener.onSelected(new Province(province.getId(), province.getName()), new City(city.getId(), city.getName()), new District(district.getId(), district.getName()));
             }
         });
     }
 
     /**
      * @param context
-     * @param type   new boolean[]{true, true, true, true, true, true}
+     * @param type     new boolean[]{true, true, true, true, true, true}
      * @param listener
-     *
      */
     public void showTimePicker(Context context, boolean[] type, final OnTimeListener listener) {
         Calendar selectedDate = Calendar.getInstance();
@@ -87,7 +87,7 @@ public class PickerUtils {
         TimePickerView pvTime = new TimePickerBuilder(context, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                listener.onTimeSelect(date,v);
+                listener.onTimeSelect(date, v);
             }
         })
                 .setType(type)// 默认全部显示
@@ -111,17 +111,20 @@ public class PickerUtils {
                 .build();
         pvTime.show();
     }
+
     /**
      * 日期转字符串
      */
     public String getDate(Date data, String format) {
         return new SimpleDateFormat(format, Locale.getDefault()).format(data);
     }
+
     public interface OnTimeListener {
         void onTimeSelect(Date date, View v);
     }
+
     public interface OnCityClickListener {
-        void onSelected(Province province, City city,District district);
+        void onSelected(Province province, City city, District district);
     }
 
 }
