@@ -33,7 +33,12 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
 
     }
 
-
+    //别忘了将广播取消掉哦~
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NetUtil.getInstance().unregisterReceiver(this);
+    }
     /**
      * 使得在“setContentView()"之前生效，所以配置在此方法中。
      *
@@ -62,12 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
      */
     @Override
     public void onChangeListener(int netMobile) {
-
-
     }
-
-
-
 
     /**
      * 初始化控件
@@ -173,7 +173,7 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
                     handleResult(f, requestCode, resultCode, data);
                 }
         if (childFragment == null)
-            Log.e(TAG, "MyBaseFragmentActivity1111");
+            Log.e(TAG, TAG);
     }
 
 }

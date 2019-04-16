@@ -53,8 +53,19 @@ public class NetUtil {
 
     }
 
+    /**
+     *  将广播取消掉哦~
+     * @param context
+     */
+    public void unregisterReceiver(Activity context) {
+        context. unregisterReceiver(netBroadcastReceiver);
 
+    }
 
+    /**
+     * @param context
+     * @return   -1、没有连接网络 0、移动网络 1、无线网络
+     */
     public int getNetWorkState(Context context) {
         // 得到连接管理器对象  
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
