@@ -56,7 +56,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onChangeListener(int netMobile) {
         super.onChangeListener(netMobile);
-        Log.d("onNetChange1111: ", "" + isNetConnect());
+        Log.d("onNetChange1111: ", "" + netMobile);
     }
 
     @Override

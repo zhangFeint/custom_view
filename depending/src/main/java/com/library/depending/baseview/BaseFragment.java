@@ -6,9 +6,7 @@ import android.support.v4.app.Fragment;
 
 public abstract class BaseFragment extends Fragment {
 
-    /**
-     * Fragment当前状态是否可见
-     */
+    //Fragment当前状态是否可见
     public boolean isVisible;
 
     @Override

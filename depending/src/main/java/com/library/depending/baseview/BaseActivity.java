@@ -2,25 +2,12 @@ package com.library.depending.baseview;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 
 import com.library.depending.broadcast.NetBroadcastReceiver;
@@ -37,19 +24,13 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
     private static final String TAG = "BaseActivity";
     public static NetBroadcastReceiver.NetChangeListener listener;
 
-    /**
-     * 实时监听网络变化
-     */
-    private NetBroadcastReceiver netBroadcastReceiver;
-    private int netMobile;// 网络类型
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MyActivityManager.getInstance().pushOneActivity(this);
-        checkNet();
+        listener = this;
+        NetUtil.getInstance().checkNet(this);
+
     }
 
 
@@ -75,47 +56,17 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
         ScreenUtil.resetDensity(this.getApplicationContext());
     }
 
-    /**
-     * 初始化时判断有没有网络
-     */
-    public boolean checkNet() {
-        listener = this;
-        //Android 7.0以上需要动态注册
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            IntentFilter filter = new IntentFilter();  //实例化IntentFilter对象
-            filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
-            netBroadcastReceiver = new NetBroadcastReceiver();
-            registerReceiver(netBroadcastReceiver, filter);  //注册广播接收
-        }
-        this.netMobile = NetUtil.getInstance().getNetWorkState(BaseActivity.this);
-        return isNetConnect();
-    }
 
     /**
      * 网络变化之后的类型
      */
     @Override
     public void onChangeListener(int netMobile) {
-        this.netMobile = netMobile;
-        Log.d(TAG, "onChangeListener: "+isNetConnect());
-        isNetConnect();
+
+
     }
 
-    /**
-     * 判断有无网络 。
-     *
-     * @return true 有网, false 没有网络.
-     */
-    public boolean isNetConnect() {
-        if (netMobile == 1) {
-            return true;
-        } else if (netMobile == 0) {
-            return true;
-        } else if (netMobile == -1) {
-            return false;
-        }
-        return false;
-    }
+
 
 
     /**
@@ -215,7 +166,6 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
      */
     private void handleResult(Fragment fragment, int requestCode, int resultCode, Intent data) {
         fragment.onActivityResult(requestCode, resultCode, data);//调用每个Fragment的onActivityResult
-        Log.e(TAG, "MyBaseFragmentActivity");
         List<Fragment> childFragment = fragment.getChildFragmentManager().getFragments(); //找到第二层Fragment
         if (childFragment != null)
             for (Fragment f : childFragment)

@@ -1,8 +1,14 @@
 package com.library.depending.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
+
+import com.library.depending.baseview.BaseActivity;
+import com.library.depending.broadcast.NetBroadcastReceiver;
 
 /**
  *  
@@ -21,6 +27,7 @@ public class NetUtil {
     private static final int NETWORK_WIFI = 1;
 
     private static NetUtil netUtil;
+    private NetBroadcastReceiver netBroadcastReceiver;
 
     /**
      * 单例模式
@@ -30,6 +37,20 @@ public class NetUtil {
             netUtil = new NetUtil();
         }
         return netUtil;
+    }
+
+    /**
+     * 初始化时判断有没有网络 动态注册
+     */
+    public void checkNet(Activity context) {
+        //Android 7.0以上需要动态注册
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            IntentFilter filter = new IntentFilter();  //实例化IntentFilter对象
+            filter.addAction("android.net.conn.CONNECTIVITY_CHANGE");
+            netBroadcastReceiver = new NetBroadcastReceiver();
+             context.registerReceiver(netBroadcastReceiver, filter);  //注册广播接收
+        }
+
     }
 
 
