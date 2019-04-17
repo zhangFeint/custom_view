@@ -3,24 +3,29 @@ package com.library.depending.utils;
 
 import com.google.gson.Gson;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 //    String message1 = "{\"key\":\"valve\",\"key\":\"valve\",\"key\":\"valve\"}";
 //    String message2 = "[{\"key\":\"value\"},{\"key\":\"value\"},{\"key\":\"value\"}]";
 //    String message3 = "key:value";
 //                System.out.println(JsonUtils.getInstance().estimate(message1));
 //                System.out.println(JsonUtils.getInstance().estimate(message2));
 //                System.out.println(JsonUtils.getInstance().estimate(message3));
+
 /**
- * @author：zhangerpeng
- * 版本：
+ * @author：zhangerpeng 版本：
  * 日期：2019/4/15 22:54
  * 描述：
- *
  */
 public class JsonUtils {
     private static JsonUtils jsonUtils;
@@ -58,18 +63,26 @@ public class JsonUtils {
         }
     }
 
-    public void getJson(String str) {
+    public Map<String, String> getJsonMap(String str) {
+        Map<String, String> map = new HashMap<>();
         try {
             JSONObject jsonObject = new JSONObject(str);
             Iterator<String> it = jsonObject.keys();
             while (it.hasNext()) {
                 String key = it.next();// 获得key
                 String value = jsonObject.getString(key);
-                System.out.println("key: " + key + ",value:" + value);
+                map.put(key, value);
             }
         } catch (JSONException e) {
             e.printStackTrace();
+            return map;
         }
+        return map;
     }
+
+    public String getJson(Object src) {
+        return new Gson().toJson(src);
+    }
+
 
 }
