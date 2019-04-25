@@ -49,13 +49,13 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     implementation 'pub.devrel:easypermissions:1.0.1'
-// -------------------- 以上4个库是可选依赖的 ----------------------------
-
-// -------------------- BGASortableNinePhotoLayout 以下4个库是必须依赖的 ----------------------------
+    // -------------------- 以上4个库是可选依赖的 ----------------------------
+    // -------------------- BGASortableNinePhotoLayout 以下4个库是必须依赖的 ----------------------------
     implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation 'cn.bingoogolapple:bga-baseadapter:1.2.7@aar'
-// -------------------- 以上4个库是必须依赖的 ----------------------------
+    // -------------------- 以上4个库是必须依赖的 ----------------------------
+    implementation files('libs/tbs_sdk_thirdapp_v3.6.0.1310_43612_sharewithdownload_withoutGame_obfs_20180706_163319.jar')
 }

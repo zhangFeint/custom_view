@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.library.depending.TBSWebView.TbsWebViewActivity;
 import com.library.depending.baseview.BaseActivity;
 import com.library.depending.utils.ActivityUtils;
 import com.library.depending.bean.City;
@@ -110,7 +111,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
              showDialog();
                 break;
             case R.id.button7:
-
+                TbsWebViewActivity.show(this,"https://www.baidu.com");
                 break;
         }
     }

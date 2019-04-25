@@ -47,7 +47,7 @@
         <activity android:name=".webview.WebActivity" />
         <activity android:name=".webview.WebNavigationActivity" />
         <activity android:name=".view.GuideActivity"></activity>
-
+        <activity android:name=".TBSWebView.TbsWebViewActivity"/>
         <receiver android:name=".broadcast.NetBroadcastReceiver">  
             <intent-filter>  
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />  
