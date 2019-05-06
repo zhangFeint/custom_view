@@ -6,13 +6,11 @@ import android.view.MotionEvent;
 import android.widget.GridView;
 
 /**
- * 功能：
- * 自定义GridView避免其在scrollview中单行显示
- *
  * @author：zhangerpeng
- * @create：2018\11\17 0017 10:03
- * @version：2018 1.0
- * Created with IntelliJ IDEA
+ * 版本：
+ * 日期：2019/5/6 22:45
+ * 描述：
+ *自定义GridView避免其在scrollview中单行显示
  */
 public class ExpandableGridView extends GridView {
     private OnTouchInvalidPositionListener onTouchInvalidPositionListener;

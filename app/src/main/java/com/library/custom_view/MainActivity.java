@@ -14,6 +14,7 @@ import com.library.depending.baseview.BaseActivity;
 import com.library.depending.utils.ActivityUtils;
 import com.library.depending.bean.City;
 import com.library.depending.bean.District;
+import com.library.depending.utils.NetUtil;
 import com.library.depending.utils.PickerUtils;
 import com.library.depending.bean.Province;
 import com.library.depending.utils.RequestCode;
@@ -37,6 +38,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if( NetUtil.getInstance().getNetWorkState(this) ==1){
+            Toast.makeText(this, "wggggg", Toast.LENGTH_SHORT).show();
+            return;
+        }
         setContentView(R.layout.activity_main);
         initViews();
         initListener();
@@ -52,8 +57,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         button6 = findViewById(R.id.button6);
         button7 = findViewById(R.id.button7);
         ivImage = findViewById(R.id.iv_image);
-
-
+        Log.d("MainActivity", "initViews: "+ NetUtil.getInstance().getNetWorkState(this));
+       ;
         initData();
     }
 
@@ -108,15 +113,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
                 break;
             case R.id.button6:
-             showDialog();
+                refresh();
+//             showDialog();
                 break;
             case R.id.button7:
                 TbsWebViewActivity.show(this,"https://www.baidu.com");
                 break;
         }
     }
-
-
 
 
     private void resetCameraResult(Uri url) {

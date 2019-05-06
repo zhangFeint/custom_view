@@ -78,7 +78,7 @@ public class PickerUtils {
      * @param type     new boolean[]{true, true, true, true, true, true}
      * @param listener
      */
-    public void showTimePicker(Context context, boolean[] type, final OnTimeListener listener) {
+    public void showTimePicker(Context context, boolean[] type,final String format, final OnTimeListener listener) {
         Calendar selectedDate = Calendar.getInstance();
         Calendar startDate = Calendar.getInstance();
         //startDate.set(2013,1,1);
@@ -90,7 +90,7 @@ public class PickerUtils {
         TimePickerView pvTime = new TimePickerBuilder(context, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                listener.onTimeSelect(date, v);
+                listener.onTimeSelect(getDate(date,format), v);
             }
         })
                 .setType(type)// 默认全部显示
@@ -123,7 +123,7 @@ public class PickerUtils {
     }
 
     public interface OnTimeListener {
-        void onTimeSelect(Date date, View v);
+        void onTimeSelect(String date, View v);
     }
 
     public interface OnCityClickListener {

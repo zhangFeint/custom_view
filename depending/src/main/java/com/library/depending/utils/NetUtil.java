@@ -58,8 +58,9 @@ public class NetUtil {
      * @param context
      */
     public void unregisterReceiver(Activity context) {
-        context. unregisterReceiver(netBroadcastReceiver);
-
+        if(netBroadcastReceiver!=null){
+            context. unregisterReceiver(netBroadcastReceiver);
+        }
     }
 
     /**

@@ -5,7 +5,11 @@ import android.content.SharedPreferences;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * EditText提供了一个android:digits配置，它表示EditText能够接受的字符集合。
@@ -172,5 +176,32 @@ public class EditTextUtils {
 
             }
         });
+    }
+
+
+    /**
+     * 显示键盘
+     *
+     * @param et 输入焦点
+     */
+    public void showInput(Activity mActivity,final EditText et) {
+        et.requestFocus();
+        InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(INPUT_METHOD_SERVICE);
+        imm.showSoftInput(et, InputMethodManager.SHOW_IMPLICIT);
+    }
+
+    /**
+     * 隐藏键盘
+     */
+    public void hideInput(Activity mActivity) {
+        InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(INPUT_METHOD_SERVICE);
+        View v = mActivity.getWindow().peekDecorView();
+        if (null != v) {
+            imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        }
+    }
+    public void deg(Activity mActivity) {
+        mActivity. getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);// 设置默认键盘
+
     }
 }

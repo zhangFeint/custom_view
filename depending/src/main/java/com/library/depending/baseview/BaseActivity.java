@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 
 import com.library.depending.broadcast.NetBroadcastReceiver;
@@ -26,11 +27,10 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         MyActivityManager.getInstance().pushOneActivity(this);
         listener = this;
         NetUtil.getInstance().checkNet(this);
-
+        super.onCreate(savedInstanceState);
     }
 
     //别忘了将广播取消掉哦~
@@ -108,6 +108,13 @@ public abstract class BaseActivity extends AppCompatActivity implements NetBroad
      * 初始适配器
      */
     public void initAdapter() {
+    }
+
+    /**
+     * 刷新
+     */
+    public void refresh() {
+        recreate();
     }
 
     /**

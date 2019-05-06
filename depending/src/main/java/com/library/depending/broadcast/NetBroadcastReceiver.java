@@ -9,7 +9,6 @@ import com.library.depending.baseview.BaseActivity;
 import com.library.depending.utils.NetUtil;
 
 public class NetBroadcastReceiver extends BroadcastReceiver {
-
     public NetChangeListener listener = BaseActivity.listener;
 
     @Override
